@@ -1,0 +1,383 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Line Follower Robot - Yogesh Salvi</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="description" content="Real-time embedded control system for autonomous line following robot" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<a href="../index.html" class="logo">← Back to Portfolio</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li><a href="../index.html">Portfolio</a></li>
+							<li><a href="../resume.html">Resume</a></li>
+							<li><a href="../index.html#aboutme">About Me</a></li>
+						</ul>
+						<ul class="icons">
+							<li><a href="https://www.linkedin.com/in/yogesh-salvi-robotics" target="_blank" rel="noopener" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+							<li><a href="https://github.com/yogeshsalvi09032000" target="_blank" rel="noopener" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+							<li><a href="mailto:yogeshsalvi09032000@gmail.com" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<header class="major">
+									<span class="date">Spring 2024</span>
+									<h1>Line Follower Robot<br />Real-Time Embedded Control</h1>
+									<p>Model-Based Design with Simulink and Arduino Deployment</p>
+								</header>
+
+								<!-- Project Image -->
+								<div class="image main">
+									<img src="../images/lfr1.jpg" alt="Line follower robot hardware" />
+								</div>
+
+								<!-- Project Overview -->
+								<h2>Project Overview</h2>
+								<p>
+									This project implemented a real-time embedded control system for an autonomous line-following robot 
+									using model-based design methodology. The system was developed entirely in MATLAB Simulink and deployed 
+									directly to Arduino hardware, demonstrating rapid prototyping and hardware-in-the-loop testing capabilities.
+								</p>
+
+								<!-- Demo Video -->
+								<h2>Project Demo</h2>
+								<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%;">
+									<iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
+									        src="https://www.youtube.com/embed/H874JEWbnMs" 
+									        frameborder="0" 
+									        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+									        allowfullscreen>
+									</iframe>
+								</div>
+								<br>
+
+								<!-- Objectives -->
+								<h2>Project Objectives</h2>
+								<ul>
+									<li>Design complete control system using Simulink block diagrams</li>
+									<li>Implement differential drive control for line tracking</li>
+									<li>Deploy real-time code to Arduino microcontroller</li>
+									<li>Achieve robust line following on curved and straight paths</li>
+									<li>Collect and analyze motor speed data using encoder feedback</li>
+									<li>Validate system performance through experimentation</li>
+								</ul>
+
+								<!-- System Architecture -->
+								<h2>System Architecture</h2>
+								<p>
+									The line follower robot consisted of three main subsystems:
+								</p>
+
+								<h3>1. Sensing Subsystem</h3>
+								<ul>
+									<li><strong>IR Reflective Sensors:</strong> Array of 5 infrared sensors detecting line position</li>
+									<li><strong>Sensor Configuration:</strong> Evenly spaced across robot width for coverage</li>
+									<li><strong>Digital Output:</strong> Binary signal (HIGH = line detected, LOW = no line)</li>
+									<li><strong>Threshold Tuning:</strong> Calibrated for different surface reflectivities</li>
+								</ul>
+
+								<h3>2. Control Subsystem</h3>
+								<ul>
+									<li><strong>Threshold-Based Logic:</strong> Simple yet effective decision-making</li>
+									<li><strong>Differential Drive Control:</strong> Independent left/right motor speed commands</li>
+									<li><strong>PWM Output:</strong> Pulse-width modulation for motor speed control</li>
+									<li><strong>Direction Control:</strong> Fixed direction pins for forward motion</li>
+								</ul>
+
+								<h3>3. Actuation Subsystem</h3>
+								<ul>
+									<li><strong>DC Gear Motors:</strong> Two motors providing differential drive</li>
+									<li><strong>Motor Driver:</strong> L298N H-bridge for bi-directional control</li>
+									<li><strong>Wheel Encoders:</strong> Optical encoders for speed measurement</li>
+									<li><strong>Power Supply:</strong> 7.4V Li-Po battery with voltage regulation</li>
+								</ul>
+
+								<!-- Simulink Model -->
+								<h2>Simulink Model Design</h2>
+								<p>
+									The entire control system was modeled using Simulink block diagrams, enabling:
+								</p>
+								<ul>
+									<li>Visual programming without writing embedded C code</li>
+									<li>Simulation and testing before hardware deployment</li>
+									<li>Automatic code generation for Arduino</li>
+									<li>Real-time monitoring of internal signals</li>
+									<li>Easy parameter tuning through Simulink interface</li>
+								</ul>
+
+								<h3>Model Structure</h3>
+								<p>
+									The Simulink model contained the following key blocks:
+								</p>
+								<ul>
+									<li><strong>Digital Input:</strong> Read IR sensor values (5 digital pins)</li>
+									<li><strong>Logic Blocks:</strong> Implement line-following decision logic</li>
+									<li><strong>PWM Output:</strong> Generate motor speed commands (0-255)</li>
+									<li><strong>Digital Output:</strong> Control motor direction (forward/backward)</li>
+									<li><strong>Encoder Input:</strong> Read wheel speed from optical encoders</li>
+									<li><strong>Display/Scope:</strong> Monitor sensor and motor signals in real-time</li>
+								</ul>
+
+								<!-- Control Algorithm -->
+								<h2>Control Algorithm</h2>
+								<p>
+									The line-following algorithm used threshold-based logic to determine steering commands:
+								</p>
+
+								<h3>Sensor Configuration</h3>
+								<pre><code>Sensor Array:  [S1] [S2] [S3] [S4] [S5]
+Position:       Far  Mid  Center Mid  Far
+               Left Left       Right Right</code></pre>
+
+								<h3>Control Logic</h3>
+								<table style="width: 100%; border-collapse: collapse; margin: 1em 0;">
+									<tr style="background: #2c3e50; color: white;">
+										<th style="padding: 0.5em; border: 1px solid #34495e;">Sensor Reading</th>
+										<th style="padding: 0.5em; border: 1px solid #34495e;">Robot Position</th>
+										<th style="padding: 0.5em; border: 1px solid #34495e;">Left Motor</th>
+										<th style="padding: 0.5em; border: 1px solid #34495e;">Right Motor</th>
+										<th style="padding: 0.5em; border: 1px solid #34495e;">Action</th>
+									</tr>
+									<tr>
+										<td style="padding: 0.5em; border: 1px solid #34495e;">00100</td>
+										<td style="padding: 0.5em; border: 1px solid #34495e;">Center (on line)</td>
+										<td style="padding: 0.5em; border: 1px solid #34495e;">HIGH</td>
+										<td style="padding: 0.5em; border: 1px solid #34495e;">HIGH</td>
+										<td style="padding: 0.5em; border: 1px solid #34495e;">Forward</td>
+									</tr>
+									<tr>
+										<td style="padding: 0.5em; border: 1px solid #34495e;">01000</td>
+										<td style="padding: 0.5em; border: 1px solid #34495e;">Slightly left</td>
+										<td style="padding: 0.5em; border: 1px solid #34495e;">MEDIUM</td>
+										<td style="padding: 0.5em; border: 1px solid #34495e;">HIGH</td>
+										<td style="padding: 0.5em; border: 1px solid #34495e;">Slight right</td>
+									</tr>
+									<tr>
+										<td style="padding: 0.5em; border: 1px solid #34495e;">10000</td>
+										<td style="padding: 0.5em; border: 1px solid #34495e;">Far left</td>
+										<td style="padding: 0.5em; border: 1px solid #34495e;">LOW</td>
+										<td style="padding: 0.5em; border: 1px solid #34495e;">HIGH</td>
+										<td style="padding: 0.5em; border: 1px solid #34495e;">Sharp right</td>
+									</tr>
+									<tr>
+										<td style="padding: 0.5em; border: 1px solid #34495e;">00010</td>
+										<td style="padding: 0.5em; border: 1px solid #34495e;">Slightly right</td>
+										<td style="padding: 0.5em; border: 1px solid #34495e;">HIGH</td>
+										<td style="padding: 0.5em; border: 1px solid #34495e;">MEDIUM</td>
+										<td style="padding: 0.5em; border: 1px solid #34495e;">Slight left</td>
+									</tr>
+									<tr>
+										<td style="padding: 0.5em; border: 1px solid #34495e;">00001</td>
+										<td style="padding: 0.5em; border: 1px solid #34495e;">Far right</td>
+										<td style="padding: 0.5em; border: 1px solid #34495e;">HIGH</td>
+										<td style="padding: 0.5em; border: 1px solid #34495e;">LOW</td>
+										<td style="padding: 0.5em; border: 1px solid #34495e;">Sharp left</td>
+									</tr>
+								</table>
+
+								<h3>PWM Speed Control</h3>
+								<p>
+									Motor speeds were controlled using PWM (Pulse Width Modulation):
+								</p>
+								<ul>
+									<li><strong>HIGH speed:</strong> PWM = 200 (78% duty cycle)</li>
+									<li><strong>MEDIUM speed:</strong> PWM = 150 (59% duty cycle)</li>
+									<li><strong>LOW speed:</strong> PWM = 100 (39% duty cycle)</li>
+									<li><strong>STOP:</strong> PWM = 0 (0% duty cycle)</li>
+								</ul>
+
+								<!-- Hardware Deployment -->
+								<h2>Hardware Deployment</h2>
+								<p>
+									The Simulink model was deployed to Arduino hardware using the Simulink Support Package for Arduino:
+								</p>
+
+								<h3>Deployment Process</h3>
+								<ol>
+									<li><strong>Model Development:</strong> Build and test control logic in Simulink</li>
+									<li><strong>Simulation:</strong> Validate behavior using software-in-the-loop testing</li>
+									<li><strong>Code Generation:</strong> Automatically generate embedded C code</li>
+									<li><strong>Compilation:</strong> Compile code for Arduino Uno target</li>
+									<li><strong>Upload:</strong> Flash compiled binary to Arduino via USB</li>
+									<li><strong>Execution:</strong> Real-time execution on hardware at fixed time step</li>
+								</ol>
+
+								<h3>Real-Time Execution</h3>
+								<ul>
+									<li><strong>Sample Time:</strong> 10 ms (100 Hz control loop)</li>
+									<li><strong>Deterministic Timing:</strong> Fixed-step solver ensures consistent timing</li>
+									<li><strong>Overrun Protection:</strong> Error detection if execution exceeds sample time</li>
+								</ul>
+
+								<!-- Data Acquisition -->
+								<h2>Data Acquisition & Analysis</h2>
+								<p>
+									Wheel encoders provided real-time speed feedback for performance evaluation:
+								</p>
+
+								<h3>Encoder Configuration</h3>
+								<ul>
+									<li><strong>Type:</strong> Optical rotary encoders (slotted disk + IR sensor)</li>
+									<li><strong>Resolution:</strong> 20 pulses per revolution</li>
+									<li><strong>Sampling:</strong> Interrupt-driven pulse counting</li>
+									<li><strong>Processing:</strong> Convert pulse count to RPM</li>
+								</ul>
+
+								<h3>Speed Calculation</h3>
+								<p>
+									Motor speed was calculated from encoder pulses:
+								</p>
+								<pre><code>RPM = (Pulses / PPR) × (60 / Δt)
+
+Where:
+- Pulses = Encoder counts in time interval
+- PPR = Pulses Per Revolution (20)
+- Δt = Time interval in seconds (0.1s for 10 Hz logging)</code></pre>
+
+								<h3>Data Logging</h3>
+								<p>
+									The following data was logged during test runs:
+								</p>
+								<ul>
+									<li>Left motor PWM command (0-255)</li>
+									<li>Right motor PWM command (0-255)</li>
+									<li>Left wheel speed (RPM)</li>
+									<li>Right wheel speed (RPM)</li>
+									<li>Sensor array readings (binary)</li>
+									<li>Timestamp (milliseconds)</li>
+								</ul>
+
+								<!-- Results -->
+								<h2>Results & Performance</h2>
+								<p>
+									The line follower robot successfully tracked various line configurations:
+								</p>
+
+								<h3>Test Scenarios</h3>
+								<ul>
+									<li><strong>Straight Line:</strong> Stable tracking with minimal oscillation</li>
+									<li><strong>Gentle Curves:</strong> Smooth cornering without line loss</li>
+									<li><strong>Sharp Turns (90°):</strong> Successfully navigated with correct differential drive</li>
+									<li><strong>Intersections:</strong> Continued straight when configured</li>
+									<li><strong>Gaps:</strong> Brief line gaps handled by momentum</li>
+								</ul>
+
+								<h3>Performance Metrics</h3>
+								<ul>
+									<li><strong>Average Speed:</strong> ~15 cm/s on straight sections</li>
+									<li><strong>Success Rate:</strong> 95% completion on test track (20 laps)</li>
+									<li><strong>Line Loss Events:</strong> Average 0.5 per lap (recovered automatically)</li>
+									<li><strong>Control Loop Frequency:</strong> Stable 100 Hz execution</li>
+									<li><strong>Response Time:</strong> <100ms from sensor input to motor adjustment</li>
+								</ul>
+
+								<!-- Challenges -->
+								<h2>Challenges & Solutions</h2>
+								<div class="box">
+									<h4>Challenge: Sensor Noise and Ambient Lighting</h4>
+									<p><strong>Solution:</strong> Implemented digital filtering in Simulink using moving average. 
+									Added physical shielding around IR sensors to reduce ambient light interference. Calibrated 
+									thresholds for specific lighting conditions.</p>
+
+									<h4>Challenge: Overshoot on Sharp Turns</h4>
+									<p><strong>Solution:</strong> Tuned differential drive ratios to provide more aggressive steering. 
+									Reduced overall speed approaching turns. Added anticipatory logic based on sensor pattern recognition.</p>
+
+									<h4>Challenge: Encoder Signal Bouncing</h4>
+									<p><strong>Solution:</strong> Implemented interrupt-driven counting with debouncing delay (5ms). 
+									Used hardware pull-up resistors on encoder inputs. Added software filtering to reject spurious pulses.</p>
+
+									<h4>Challenge: Battery Voltage Drop</h4>
+									<p><strong>Solution:</strong> Implemented voltage compensation by monitoring battery level and 
+									increasing PWM values proportionally as voltage dropped. Added low-voltage cutoff protection.</p>
+								</div>
+
+								<!-- Tools & Technologies -->
+								<h2>Tools & Technologies</h2>
+								<div class="box">
+									<p><strong>Software:</strong> MATLAB Simulink, Simulink Support Package for Arduino, Model-Based Design</p>
+									<p><strong>Hardware:</strong> Arduino Uno, L298N Motor Driver, 5× IR Line Sensors, 2× DC Gear Motors, 
+									   2× Optical Encoders, Li-Po Battery</p>
+									<p><strong>Control:</strong> PWM Motor Control, Differential Drive, Threshold-Based Logic, 
+									   Real-Time Embedded Systems</p>
+									<p><strong>Analysis:</strong> Encoder-Based Speed Measurement, Data Logging, Performance Evaluation</p>
+								</div>
+
+								<!-- Key Learnings -->
+								<h2>Key Learnings</h2>
+								<p>
+									This project demonstrated the power of model-based design for embedded systems development. 
+									The visual programming approach in Simulink enabled rapid prototyping and intuitive system 
+									visualization. Learned the importance of sensor calibration, the effectiveness of simple 
+									threshold-based control for constrained environments, and the value of real-time data acquisition 
+									for system validation. The project reinforced understanding of PWM control, differential drive 
+									kinematics, and embedded system constraints.
+								</p>
+
+								<!-- Future Enhancements -->
+								<h2>Future Enhancements</h2>
+								<ul>
+									<li>Implement PID control for smoother speed regulation</li>
+									<li>Add line width detection for adaptive speed control</li>
+									<li>Implement state machine for intersection navigation</li>
+									<li>Add wireless communication for remote monitoring</li>
+									<li>Integrate IMU for improved heading estimation</li>
+									<li>Develop learning algorithm to optimize parameters automatically</li>
+								</ul>
+
+								<!-- Back Navigation -->
+								<ul class="actions special">
+									<li><a href="../index.html#projects" class="button large">← Back to All Projects</a></li>
+								</ul>
+
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<section>
+							<h3>Contact</h3>
+							<ul style="list-style: none; padding: 0;">
+								<li><a href="mailto:yogeshsalvi09032000@gmail.com">yogeshsalvi09032000@gmail.com</a></li>
+							</ul>
+						</section>
+						<section>
+							<h3>Social</h3>
+							<ul class="icons alt">
+								<li><a href="https://www.linkedin.com/in/yogesh-salvi-robotics" target="_blank" rel="noopener" class="icon brands alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
+								<li><a href="https://github.com/yogeshsalvi09032000" target="_blank" rel="noopener" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+							</ul>
+						</section>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+
+	</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Feature Point Tracking using OpenCV - Yogesh Salvi</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="description" content="OpenCV feature point tracking with ROS on ROSMASTER X3" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<a href="../index.html" class="logo">← Back to Portfolio</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li><a href="index.html">Portfolio</a></li>
+							<li><a href="resume.html">Resume</a></li>
+							<li><a href="index.html#aboutme">About Me</a></li>
+						</ul>
+						<ul class="icons">
+							<li><a href="https://www.linkedin.com/in/yogesh-salvi-robotics" target="_blank" rel="noopener" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+							<li><a href="https://github.com/yogeshsalvi09032000" target="_blank" rel="noopener" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+							<li><a href="mailto:yogeshsalvi09032000@gmail.com" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<header class="major">
+									<span class="date">Fall 2024 - EGR 530</span>
+									<h1>Feature Point Tracking<br />using OpenCV</h1>
+									<p>ROS + Computer Vision Pipeline on ROSMASTER X3</p>
+								</header>
+
+								<!-- Main Project Image -->
+								<div class="image main">
+									<img src="../images/opencv-track-1.jpg" alt="ROSMASTER X3 robot with Astra camera" />
+								</div>
+
+								<!-- Image Gallery -->
+								<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1em; margin-bottom: 2em;">
+									<img src="../images/opencv-track-6.jpg" alt="Feature detection on 3D object - 29 corners" style="width: 100%; border-radius: 4px;" />
+									<img src="../images/opencv-track-4.jpg" alt="ROS terminal with feature tracking on objects" style="width: 100%; border-radius: 4px;" />
+									<img src="../images/opencv-track-5.jpg" alt="Experimental results comparing corner counts" style="width: 100%; border-radius: 4px;" />
+								</div>
+
+								<!-- Project Overview -->
+								<h2>Project Overview</h2>
+								<p>
+									This Systems Engineering midterm project implemented a complete ROS perception pipeline on the ROSMASTER X3 
+									platform using an Astra RGB camera and OpenCV's good feature tracking algorithm. The system detects and 
+									visualizes strong corner points using the Shi-Tomasi method for real-time feature point extraction - a 
+									foundational technique used in visual odometry, SLAM, and object tracking applications.
+								</p>
+
+								<!-- Objectives -->
+								<h2>Project Objectives</h2>
+								<ul>
+									<li>Implement complete ROS perception pipeline from sensor input to feature visualization</li>
+									<li>Apply Shi-Tomasi Good Features to Track algorithm for corner detection</li>
+									<li>Achieve real-time feature point detection and publish structured numerical outputs</li>
+									<li>Analyze parameter sensitivity (max_corners) on feature density and tracking robustness</li>
+									<li>Demonstrate modular ROS architecture separating sensing, processing, and visualization</li>
+								</ul>
+
+								<!-- System Architecture -->
+								<h2>System Architecture</h2>
+								<p>
+									The system consists of three main subsystems integrated through ROS publish-subscribe architecture:
+								</p>
+
+								<h3>1. Sensor Interface (/astra_camera)</h3>
+								<ul>
+									<li>Connects ROS to physical RGB camera hardware</li>
+									<li>Continuously captures and publishes image frames as sensor_msgs/Image</li>
+									<li>Forms the input to the perception pipeline</li>
+								</ul>
+
+								<h3>2. Vision Processing (/goodfeature_track)</h3>
+								<ul>
+									<li>Core opencv_apps node applying Shi-Tomasi algorithm</li>
+									<li>Converts ROS images to OpenCV format via cv_bridge</li>
+									<li>Detects corner features based on minimum eigenvalue strength</li>
+									<li>Publishes annotated images and feature coordinates</li>
+								</ul>
+
+								<h3>3. Visualization (/rqt_image_view)</h3>
+								<ul>
+									<li>Real-time display of detected feature points</li>
+									<li>Experimental validation and parameter tuning interface</li>
+								</ul>
+
+								<!-- Technical Implementation -->
+								<h2>Technical Implementation</h2>
+
+								<h3>Shi-Tomasi Algorithm</h3>
+								<p>
+									The Good Features to Track method identifies high-gradient regions suitable for tracking by analyzing 
+									the autocorrelation matrix at each pixel. Unlike the Harris detector, Shi-Tomasi uses the minimum 
+									eigenvalue for corner scoring: <strong>R = min(λ₁, λ₂)</strong>
+								</p>
+
+								<p><strong>Algorithm parameters:</strong></p>
+								<ul>
+									<li><strong>max_corners:</strong> Maximum number of strongest features to return (default: 23)</li>
+									<li><strong>quality_level:</strong> Minimum eigenvalue threshold (0.01 = 1% of maximum)</li>
+									<li><strong>min_distance:</strong> Minimum Euclidean distance between detected corners (10 pixels)</li>
+									<li><strong>block_size:</strong> Neighborhood size for derivative covariance calculation (3×3)</li>
+								</ul>
+
+								<h3>ROS Topics & Message Flow</h3>
+								<ul>
+									<li><strong>/image</strong> (sensor_msgs/Image) - Raw camera stream input</li>
+									<li><strong>/goodfeature_track/image</strong> (sensor_msgs/Image) - Annotated output with detected corners</li>
+									<li><strong>/goodfeature_track/corners</strong> (opencv_apps/Point2DArray) - Feature coordinates for downstream use</li>
+									<li><strong>/goodfeature_track/parameter_updates</strong> - Dynamic reconfiguration interface</li>
+								</ul>
+
+								<!-- Results -->
+								<h2>Experimental Results</h2>
+								<p>
+									Testing with different max_corners values revealed key performance trade-offs:
+								</p>
+								<ul>
+									<li><strong>max_corners = 8:</strong> Low computational load, suitable for low-texture environments, but reduced tracking redundancy</li>
+									<li><strong>max_corners = 29:</strong> Balanced feature density with good spatial coverage</li>
+									<li><strong>max_corners = 100:</strong> High feature density improves motion estimation accuracy but increases computational cost</li>
+								</ul>
+
+								<!-- Tools Used -->
+								<h2>Tools & Technologies</h2>
+								<div class="box">
+									<p><strong>Hardware:</strong> ROSMASTER X3 Platform, Astra RGB Camera (Orbbec)</p>
+									<p><strong>Software:</strong> ROS (Robot Operating System), OpenCV, opencv_apps, cv_bridge, rqt_image_view</p>
+									<p><strong>Algorithms:</strong> Shi-Tomasi Good Features to Track, Eigenvalue Analysis, Corner Detection</p>
+									<p><strong>Languages:</strong> C++, Launch XML, ROS Message Definitions</p>
+								</div>
+
+								<!-- Key Learnings -->
+								<h2>Key Learnings</h2>
+								<p>
+									This project demonstrated the power of ROS's modular publish-subscribe architecture for robotics perception 
+									systems. Feature point extraction serves as a foundational primitive for higher-level perception tasks like 
+									visual odometry and SLAM. The modular architecture enables clean debugging and straightforward system integration.
+								</p>
+
+								<!-- Back Navigation -->
+								<ul class="actions special">
+									<li><a href="../index.html#projects" class="button large">← Back to All Projects</a></li>
+								</ul>
+
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<section>
+							<h3>Contact</h3>
+							<ul style="list-style: none; padding: 0;">
+								<li><a href="mailto:yogeshsalvi09032000@gmail.com">yogeshsalvi09032000@gmail.com</a></li>
+							</ul>
+						</section>
+						<section>
+							<h3>Social</h3>
+							<ul class="icons alt">
+								<li><a href="https://www.linkedin.com/in/yogesh-salvi-robotics" target="_blank" rel="noopener" class="icon brands alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
+								<li><a href="https://github.com/yogeshsalvi09032000" target="_blank" rel="noopener" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+							</ul>
+						</section>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

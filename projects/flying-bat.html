@@ -1,0 +1,179 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Mechanical Flying Bat - Yogesh Salvi</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="description" content="Bio-inspired mechanical flying bat with adaptive flight control" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<a href="../index.html" class="logo">← Back to Portfolio</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li><a href="../index.html">Portfolio</a></li>
+							<li><a href="../resume.html">Resume</a></li>
+							<li><a href="../index.html#aboutme">About Me</a></li>
+						</ul>
+						<ul class="icons">
+							<li><a href="https://www.linkedin.com/in/yogesh-salvi-robotics" target="_blank" rel="noopener" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+							<li><a href="https://github.com/yogeshsalvi09032000" target="_blank" rel="noopener" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+							<li><a href="mailto:yogeshsalvi09032000@gmail.com" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<header class="major">
+									<span class="date">2023</span>
+									<h1>Mechanical Flying Bat<br/>Bio-Inspired Flight Mechanism</h1>
+									<p>Adaptive Locomotion with Electronic Actuation</p>
+								</header>
+
+								<div class="image main"><img src="../images/bat1.jpg" alt="Mechanical flying bat" /></div>
+
+								<h2>Project Overview</h2>
+								<p>Designed and built a folding, bio-inspired flying mechanism based on bat and insect gait principles. The project combined mechanical design, electronic actuation, and sensor-based control to achieve adaptive flight behavior.</p>
+
+								<h2>Design Objectives</h2>
+								<ul>
+									<li>Create biomimetic wing structure with folding capability</li>
+									<li>Integrate electronic actuation for wing motion</li>
+									<li>Implement dynamic gait pattern modification</li>
+									<li>Achieve controlled flight with sensor feedback</li>
+									<li>Optimize for lightweight and durable construction</li>
+								</ul>
+
+								<h2>Mechanical Design</h2>
+								<h3>Wing Structure</h3>
+								<ul>
+									<li><strong>Frame:</strong> Carbon fiber rods for lightweight strength</li>
+									<li><strong>Membrane:</strong> Ultra-thin fabric stretched across frame</li>
+									<li><strong>Joints:</strong> Custom 3D-printed hinges for folding motion</li>
+									<li><strong>Actuation Points:</strong> Servo-driven linkages at wing roots</li>
+								</ul>
+
+								<h3>Folding Mechanism</h3>
+								<p>The wings could fold and unfold during flight, mimicking bat wing morphology:</p>
+								<ul>
+									<li>Extended position for maximum lift during downstroke</li>
+									<li>Folded position to reduce drag during upstroke</li>
+									<li>Continuous adjustment based on flight phase</li>
+								</ul>
+
+								<h2>Electronic System</h2>
+								<h3>Actuation</h3>
+								<ul>
+									<li><strong>Servos:</strong> 4× micro servos (2 per wing) for flapping and folding</li>
+									<li><strong>Microcontroller:</strong> Arduino Nano for real-time control</li>
+									<li><strong>Power:</strong> Lightweight Li-Po battery (150mAh)</li>
+									<li><strong>Driver Circuit:</strong> Custom PCB with servo control and power regulation</li>
+								</ul>
+
+								<h3>Sensor Integration</h3>
+								<ul>
+									<li><strong>Accelerometer:</strong> 3-axis IMU for orientation sensing</li>
+									<li><strong>Ultrasonic:</strong> Distance sensor for altitude estimation</li>
+									<li><strong>Encoders:</strong> Wing position feedback from servo potentiometers</li>
+								</ul>
+
+								<h2>Control System</h2>
+								<h3>Gait Pattern Generation</h3>
+								<p>Implemented multiple flapping patterns inspired by natural flight:</p>
+								<ul>
+									<li><strong>Hovering Mode:</strong> Symmetrical rapid flapping (15 Hz)</li>
+									<li><strong>Forward Flight:</strong> Asymmetric stroke with forward bias</li>
+									<li><strong>Climbing:</strong> Increased amplitude and frequency</li>
+									<li><strong>Gliding:</strong> Extended wings, minimal flapping</li>
+								</ul>
+
+								<h3>Adaptive Control</h3>
+								<p>Gait parameters adjusted dynamically based on sensor feedback:</p>
+								<ul>
+									<li>Altitude control via flapping frequency modulation</li>
+									<li>Orientation correction using differential wing stroke</li>
+									<li>Energy conservation by switching to glide mode when possible</li>
+								</ul>
+
+								<h2>Challenges & Solutions</h2>
+								<div class="box">
+									<h4>Challenge: Weight vs. Strength Trade-off</h4>
+									<p><strong>Solution:</strong> Used carbon fiber frame with fabric membrane. Minimized electronics weight by using micro components and custom PCB.</p>
+
+									<h4>Challenge: Complex Wing Kinematics</h4>
+									<p><strong>Solution:</strong> Simplified to 2-DOF per wing (flapping + folding). Used linkage mechanism to coordinate motion mechanically rather than electronically.</p>
+
+									<h4>Challenge: Battery Life</h4>
+									<p><strong>Solution:</strong> Implemented power-saving modes. Used efficient servos. Added automatic landing when battery voltage dropped below threshold.</p>
+								</div>
+
+								<h2>Results</h2>
+								<ul>
+									<li>Achieved sustained flight for 45 seconds</li>
+									<li>Demonstrated controlled altitude changes</li>
+									<li>Successfully transitioned between flight modes</li>
+									<li>Total weight: 28 grams</li>
+									<li>Wing span: 35 cm</li>
+								</ul>
+
+								<h2>Tools & Technologies</h2>
+								<div class="box">
+									<p><strong>Mechanical:</strong> Fusion 360, 3D Printing, Carbon Fiber, Fabric Membrane</p>
+									<p><strong>Electronics:</strong> Arduino Nano, Micro Servos, IMU, Li-Po Battery, Custom PCB</p>
+									<p><strong>Software:</strong> Embedded C/C++, PID Control, State Machine, Sensor Fusion</p>
+								</div>
+
+								<h2>Key Learnings</h2>
+								<p>This project taught the importance of biomimicry in engineering design, the challenges of weight optimization in flying systems, and the integration of mechanical and electronic systems for adaptive behavior.</p>
+
+								<ul class="actions special">
+									<li><a href="../index.html#projects" class="button large">← Back to All Projects</a></li>
+								</ul>
+
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<section>
+							<h3>Contact</h3>
+							<ul style="list-style: none; padding: 0;">
+								<li><a href="mailto:yogeshsalvi09032000@gmail.com">yogeshsalvi09032000@gmail.com</a></li>
+							</ul>
+						</section>
+						<section>
+							<h3>Social</h3>
+							<ul class="icons alt">
+								<li><a href="https://www.linkedin.com/in/yogesh-salvi-robotics" target="_blank" rel="noopener" class="icon brands alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
+								<li><a href="https://github.com/yogeshsalvi09032000" target="_blank" rel="noopener" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+							</ul>
+						</section>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+
+	</body>
+</html>

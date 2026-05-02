@@ -1,0 +1,340 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>6-DOF Cobot Arm Manipulation - Yogesh Salvi</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="description" content="Autonomous maze-solving using 6-DOF robotic arm with computer vision and kinematics" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<a href="../index.html" class="logo">← Back to Portfolio</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li><a href="../index.html">Portfolio</a></li>
+							<li><a href="../resume.html">Resume</a></li>
+							<li><a href="../index.html#aboutme">About Me</a></li>
+						</ul>
+						<ul class="icons">
+							<li><a href="https://www.linkedin.com/in/yogesh-salvi-robotics" target="_blank" rel="noopener" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+							<li><a href="https://github.com/yogeshsalvi09032000" target="_blank" rel="noopener" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+							<li><a href="mailto:yogeshsalvi09032000@gmail.com" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<header class="major">
+									<span class="date">Fall 2024</span>
+									<h1>6-DOF Cobot Arm<br />Autonomous Maze Solving</h1>
+									<p>Computer Vision, Path Planning, and Kinematics-Based Manipulation</p>
+								</header>
+
+								<!-- Project Images -->
+								<div class="image main">
+									<img src="../images/cobot1.jpg" alt="6-DOF cobot arm solving maze" />
+								</div>
+
+								<!-- Project Overview -->
+								<h2>Project Overview</h2>
+								<p>
+									This project integrated computer vision, path planning, and robotic manipulation to autonomously solve 
+									a 6×6 grid maze. A 6-DOF collaborative robot arm was programmed to navigate from start to goal position 
+									using visual feedback and kinematic control. The system demonstrated end-to-end autonomy from perception 
+									through motion planning to precise execution.
+								</p>
+
+								<!-- Demo Video -->
+								<h2>Project Demo</h2>
+								<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%;">
+									<iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
+									        src="https://www.youtube.com/embed/ConUw7a263o" 
+									        frameborder="0" 
+									        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+									        allowfullscreen>
+									</iframe>
+								</div>
+								<br>
+
+								<!-- Objectives -->
+								<h2>Project Objectives</h2>
+								<ul>
+									<li>Implement computer vision system for maze detection and localization</li>
+									<li>Develop path planning algorithm to find optimal solution</li>
+									<li>Create digital twin for simulation and validation</li>
+									<li>Execute motion using forward and inverse kinematics</li>
+									<li>Achieve autonomous navigation with sub-centimeter accuracy</li>
+									<li>Collect and analyze real-time trajectory data</li>
+								</ul>
+
+								<!-- System Architecture -->
+								<h2>System Architecture</h2>
+								<p>
+									The system consisted of three main subsystems working in concert:
+								</p>
+
+								<h3>1. Perception Subsystem</h3>
+								<p>
+									An overhead camera captured the maze workspace. OpenCV was used for image processing:
+								</p>
+								<ul>
+									<li>Image acquisition and preprocessing (grayscale conversion, Gaussian blur)</li>
+									<li>Edge detection using Canny algorithm</li>
+									<li>Contour detection and line extraction using Hough transform</li>
+									<li>Grid calibration and coordinate transformation (pixel → workspace)</li>
+									<li>Start/goal position identification using color markers</li>
+								</ul>
+
+								<h3>2. Planning Subsystem</h3>
+								<p>
+									Once the maze structure was extracted, Dijkstra's algorithm computed the optimal path:
+								</p>
+								<ul>
+									<li>Graph representation of maze (nodes = grid cells, edges = valid moves)</li>
+									<li>Shortest path computation from start to goal</li>
+									<li>Waypoint generation with precise grid coordinates</li>
+									<li>Path smoothing and trajectory optimization</li>
+								</ul>
+
+								<h3>3. Control Subsystem</h3>
+								<p>
+									The robotic arm executed the planned trajectory using kinematic control:
+								</p>
+								<ul>
+									<li>Forward kinematics to verify end-effector position</li>
+									<li>Inverse kinematics (analytical solution) for joint angle computation</li>
+									<li>Joint-space interpolation for smooth motion</li>
+									<li>Task-space control for precise end-effector positioning</li>
+									<li>Velocity profiling to prevent jerky movements</li>
+								</ul>
+
+								<!-- Technical Implementation -->
+								<h2>Technical Implementation</h2>
+
+								<h3>Computer Vision Pipeline</h3>
+								<p>
+									The vision system processed camera frames in real-time to extract maze structure:
+								</p>
+								<pre><code>1. Image Acquisition → Camera calibration
+2. Preprocessing → Grayscale, blur, thresholding
+3. Feature Extraction → Edge detection, line finding
+4. Grid Detection → Contour analysis, perspective correction
+5. Coordinate Mapping → Pixel to workspace transformation
+6. Obstacle Detection → Wall identification, path validation</code></pre>
+
+								<p>
+									Camera calibration ensured accurate mapping between 2D image coordinates and 3D workspace positions. 
+									Perspective transformation corrected for camera angle and distance.
+								</p>
+
+								<h3>Path Planning with Dijkstra's Algorithm</h3>
+								<p>
+									The maze was represented as a weighted graph where:
+								</p>
+								<ul>
+									<li>Nodes = Navigable grid cells (36 cells in 6×6 maze)</li>
+									<li>Edges = Valid transitions between adjacent cells</li>
+									<li>Weights = Distance between cell centers (uniform)</li>
+									<li>Obstacles = Walls blocking edges between nodes</li>
+								</ul>
+								<p>
+									Dijkstra's algorithm guaranteed the shortest path from start to goal. The output was a sequence 
+									of waypoints that the robot needed to visit in order.
+								</p>
+
+								<h3>Forward Kinematics</h3>
+								<p>
+									Forward kinematics computed the end-effector position given joint angles using the Denavit-Hartenberg 
+									(DH) convention. For each joint, a transformation matrix was constructed:
+								</p>
+								<p>
+									<strong>T<sub>i</sub> = Rot<sub>z</sub>(θ<sub>i</sub>) · Trans<sub>z</sub>(d<sub>i</sub>) · Trans<sub>x</sub>(a<sub>i</sub>) · Rot<sub>x</sub>(α<sub>i</sub>)</strong>
+								</p>
+								<p>
+									The final end-effector position was obtained by chaining transformations:
+									<strong>T<sub>end</sub> = T<sub>1</sub> × T<sub>2</sub> × ... × T<sub>6</sub></strong>
+								</p>
+
+								<h3>Inverse Kinematics</h3>
+								<p>
+									Given a desired end-effector position (x, y, z), inverse kinematics computed the required joint 
+									angles (θ<sub>1</sub>, θ<sub>2</sub>, ..., θ<sub>6</sub>). An analytical solution was derived for 
+									the specific 6-DOF arm geometry, ensuring real-time computation without iterative methods.
+								</p>
+
+								<h3>Trajectory Execution</h3>
+								<p>
+									Motion between waypoints used:
+								</p>
+								<ul>
+									<li><strong>Joint-space interpolation:</strong> Linear interpolation between joint configurations</li>
+									<li><strong>Task-space control:</strong> Cartesian straight-line motion of end-effector</li>
+									<li><strong>Velocity profiling:</strong> Trapezoidal velocity curves for smooth acceleration/deceleration</li>
+									<li><strong>Collision avoidance:</strong> Maintaining safe height clearance above maze surface</li>
+								</ul>
+
+								<!-- Digital Twin -->
+								<h2>Digital Twin Simulation</h2>
+								<p>
+									A digital twin was created in MATLAB/Simulink to validate the control system before deployment:
+								</p>
+								<ul>
+									<li>3D visualization of robot arm and workspace</li>
+									<li>Physics-based simulation of joint dynamics</li>
+									<li>Real-time plotting of joint angles and end-effector trajectory</li>
+									<li>Validation of inverse kinematics solutions</li>
+									<li>Testing of edge cases and singularity handling</li>
+								</ul>
+								<p>
+									The digital twin allowed rapid iteration on control algorithms without risk to physical hardware. 
+									Once validated in simulation, the same code was deployed to the real robot.
+								</p>
+
+								<!-- Data Collection and Analysis -->
+								<h2>Data Collection & Analysis</h2>
+								<p>
+									During maze-solving trials, the following data was logged:
+								</p>
+								<ul>
+									<li>Joint angles (θ<sub>1</sub> through θ<sub>6</sub>) at 100 Hz</li>
+									<li>End-effector position (x, y, z) computed via forward kinematics</li>
+									<li>Commanded vs. actual trajectories</li>
+									<li>Timing data for each waypoint</li>
+									<li>Vision system confidence scores</li>
+								</ul>
+
+								<h3>Path Tracking Accuracy</h3>
+								<p>
+									Path-tracking performance was evaluated by comparing the commanded Cartesian trajectory against 
+									the measured end-effector position. Average tracking error was <strong>2.3 mm RMS</strong>, well 
+									within the required tolerance for grid navigation.
+								</p>
+
+								<h3>Execution Time</h3>
+								<p>
+									Total time from maze detection to goal reaching:
+								</p>
+								<ul>
+									<li>Vision processing: ~1.2 seconds</li>
+									<li>Path planning: ~0.3 seconds</li>
+									<li>Motion execution: ~25 seconds (for 6×6 maze)</li>
+									<li><strong>Total: ~27 seconds</strong></li>
+								</ul>
+
+								<!-- Challenges and Solutions -->
+								<h2>Challenges & Solutions</h2>
+								<div class="box">
+									<h4>Challenge: Camera Calibration and Perspective Distortion</h4>
+									<p><strong>Solution:</strong> Implemented checkerboard-based camera calibration to obtain intrinsic 
+									parameters. Used perspective transformation to correct for viewing angle, ensuring accurate 
+									pixel-to-workspace mapping.</p>
+
+									<h4>Challenge: Inverse Kinematics Singularities</h4>
+									<p><strong>Solution:</strong> Identified singularity configurations analytically. Added workspace 
+									constraints to avoid singular poses. Implemented damped least-squares method as fallback for 
+									edge cases.</p>
+
+									<h4>Challenge: Motion Smoothness and Oscillation</h4>
+									<p><strong>Solution:</strong> Applied trapezoidal velocity profiles with tuned acceleration limits. 
+									Used quintic polynomial interpolation for smooth joint-space trajectories. Added low-pass filtering 
+									to commanded joint velocities.</p>
+
+									<h4>Challenge: Real-Time Performance</h4>
+									<p><strong>Solution:</strong> Optimized OpenCV processing pipeline by reducing image resolution 
+									and using efficient algorithms (Canny instead of Sobel). Pre-computed DH transformation matrices. 
+									Parallelized vision and control threads.</p>
+								</div>
+
+								<!-- Results -->
+								<h2>Results & Achievements</h2>
+								<ul>
+									<li>Successfully solved 6×6 maze autonomously in under 30 seconds</li>
+									<li>Achieved 100% success rate across 10 test trials</li>
+									<li>Sub-centimeter positioning accuracy (2.3 mm RMS error)</li>
+									<li>Real-time vision processing at 15 FPS</li>
+									<li>Smooth, collision-free motion throughout entire trajectory</li>
+									<li>Robust performance under varying lighting conditions</li>
+								</ul>
+
+								<!-- Tools & Technologies -->
+								<h2>Tools & Technologies</h2>
+								<div class="box">
+									<p><strong>Software:</strong> MATLAB, Python, OpenCV, NumPy, Matplotlib</p>
+									<p><strong>Algorithms:</strong> Dijkstra's Algorithm, Canny Edge Detection, Hough Transform, 
+									   Forward/Inverse Kinematics, DH Parameters, Trajectory Planning</p>
+									<p><strong>Hardware:</strong> 6-DOF Collaborative Robot Arm, Overhead RGB Camera, Workspace Grid Platform</p>
+									<p><strong>Control:</strong> Joint-Space Control, Task-Space Control, Velocity Profiling, PID Tuning</p>
+								</div>
+
+								<!-- Key Learnings -->
+								<h2>Key Learnings</h2>
+								<p>
+									This project demonstrated the integration of multiple robotics subsystems into a cohesive autonomous 
+									system. Learned the importance of robust vision processing for reliable perception, the trade-offs 
+									between analytical and numerical inverse kinematics solutions, and the critical role of smooth 
+									trajectory planning in achieving stable motion. The digital twin approach proved invaluable for 
+									rapid prototyping and validation before hardware deployment.
+								</p>
+
+								<!-- Future Enhancements -->
+								<h2>Future Enhancements</h2>
+								<ul>
+									<li>Implement A* or RRT for more complex maze topologies</li>
+									<li>Add dynamic obstacle detection and replanning</li>
+									<li>Use machine learning for vision-based obstacle classification</li>
+									<li>Extend to 3D mazes with vertical motion</li>
+									<li>Implement force control for physical interaction with maze walls</li>
+								</ul>
+
+								<!-- Back Navigation -->
+								<ul class="actions special">
+									<li><a href="../index.html#projects" class="button large">← Back to All Projects</a></li>
+								</ul>
+
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<section>
+							<h3>Contact</h3>
+							<ul style="list-style: none; padding: 0;">
+								<li><a href="mailto:yogeshsalvi09032000@gmail.com">yogeshsalvi09032000@gmail.com</a></li>
+							</ul>
+						</section>
+						<section>
+							<h3>Social</h3>
+							<ul class="icons alt">
+								<li><a href="https://www.linkedin.com/in/yogesh-salvi-robotics" target="_blank" rel="noopener" class="icon brands alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
+								<li><a href="https://github.com/yogeshsalvi09032000" target="_blank" rel="noopener" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+							</ul>
+						</section>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+
+	</body>
+</html>

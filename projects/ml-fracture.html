@@ -1,0 +1,402 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>ML Bone Fracture Classification - Yogesh Salvi</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="description" content="CNN-based bone fracture classification from X-ray images" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<a href="../index.html" class="logo">← Back to Portfolio</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li><a href="../index.html">Portfolio</a></li>
+							<li><a href="../resume.html">Resume</a></li>
+							<li><a href="../index.html#aboutme">About Me</a></li>
+						</ul>
+						<ul class="icons">
+							<li><a href="https://www.linkedin.com/in/yogesh-salvi-robotics" target="_blank" rel="noopener" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+							<li><a href="https://github.com/yogeshsalvi09032000" target="_blank" rel="noopener" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+							<li><a href="mailto:yogeshsalvi09032000@gmail.com" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<header class="major">
+									<span class="date">Fall 2023</span>
+									<h1>ML-Based Bone Fracture<br />Classification from X-Rays</h1>
+									<p>Convolutional Neural Network for Medical Image Analysis</p>
+								</header>
+
+								<!-- Project Image -->
+								<div class="image main">
+									<img src="../images/mlfpga1.jpg" alt="ML fracture classification pipeline" />
+								</div>
+
+								<!-- Project Overview -->
+								<h2>Project Overview</h2>
+								<p>
+									Developed a deep learning system to automatically classify bone fractures from X-ray images. 
+									The project implemented a convolutional neural network (CNN) achieving 94.7% accuracy in 
+									distinguishing between simple and comminuted fractures. The complete machine learning pipeline 
+									included data preprocessing, model training, evaluation, and real-time inference deployment.
+								</p>
+
+								<!-- Demo Video -->
+								<h2>Project Demo</h2>
+								<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%;">
+									<iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
+									        src="https://www.youtube.com/embed/rjjgEvNM7MQ" 
+									        frameborder="0" 
+									        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+									        allowfullscreen>
+									</iframe>
+								</div>
+								<br>
+
+								<!-- Problem Statement -->
+								<h2>Problem Statement</h2>
+								<p>
+									Bone fracture diagnosis requires expert radiologist interpretation, which can be time-consuming 
+									and subject to human error. Automated classification systems can assist medical professionals by:
+								</p>
+								<ul>
+									<li>Providing rapid preliminary screening of X-ray images</li>
+									<li>Reducing diagnostic workload in emergency departments</li>
+									<li>Ensuring consistent analysis across different medical facilities</li>
+									<li>Flagging complex fractures requiring specialist attention</li>
+									<li>Supporting educational training for medical students</li>
+								</ul>
+
+								<!-- Objectives -->
+								<h2>Project Objectives</h2>
+								<ul>
+									<li>Build CNN model to classify fracture types (simple vs. comminuted)</li>
+									<li>Achieve >90% classification accuracy on test set</li>
+									<li>Implement complete ML pipeline from data to deployment</li>
+									<li>Optimize for real-time inference (<1 second per image)</li>
+									<li>Create robust model that generalizes to unseen X-rays</li>
+								</ul>
+
+								<!-- Dataset -->
+								<h2>Dataset: MURA (Musculoskeletal Radiographs)</h2>
+								<p>
+									The project used a subset of the MURA dataset, a large-scale collection of musculoskeletal 
+									X-ray images from Stanford ML Group:
+								</p>
+								<ul>
+									<li><strong>Total Images:</strong> 16,000+ bone radiographs</li>
+									<li><strong>Classes:</strong> Simple fractures vs. Comminuted fractures</li>
+									<li><strong>Image Format:</strong> Grayscale PNG (various resolutions)</li>
+									<li><strong>Data Split:</strong> 70% training, 15% validation, 15% test</li>
+									<li><strong>Class Balance:</strong> Addressed through data augmentation</li>
+								</ul>
+
+								<!-- Data Preprocessing Pipeline -->
+								<h2>Data Preprocessing Pipeline</h2>
+								<p>
+									Raw X-ray images underwent multi-stage preprocessing to improve model performance:
+								</p>
+
+								<h3>1. Contrast Enhancement (CLAHE)</h3>
+								<p>
+									Applied Contrast Limited Adaptive Histogram Equalization to improve visibility of fracture lines:
+								</p>
+								<ul>
+									<li>Divided image into 8×8 tiles</li>
+									<li>Applied histogram equalization per tile</li>
+									<li>Limited contrast amplification to prevent noise amplification</li>
+									<li>Bilinear interpolation to eliminate tile boundaries</li>
+								</ul>
+
+								<h3>2. Image Resizing</h3>
+								<p>
+									Standardized all images to 128×128 pixels:
+								</p>
+								<ul>
+									<li>Reduced computational cost while preserving fracture features</li>
+									<li>Maintained aspect ratio during resize</li>
+									<li>Applied anti-aliasing to prevent artifacts</li>
+								</ul>
+
+								<h3>3. Normalization</h3>
+								<p>
+									Pixel intensity normalization for stable training:
+								</p>
+								<pre><code>normalized_pixel = (pixel - mean) / std
+Where mean = 0.5, std = 0.5 (maps to [-1, 1] range)</code></pre>
+
+								<h3>4. Data Augmentation</h3>
+								<p>
+									Generated additional training samples to improve generalization:
+								</p>
+								<ul>
+									<li><strong>Rotation:</strong> ±15 degrees (simulates different patient positioning)</li>
+									<li><strong>Zoom:</strong> 0.9 to 1.1× (handles different X-ray magnifications)</li>
+									<li><strong>Horizontal Flip:</strong> 50% probability (left/right symmetry)</li>
+									<li><strong>Brightness Adjustment:</strong> ±10% (simulates different X-ray exposure)</li>
+								</ul>
+
+								<!-- CNN Architecture -->
+								<h2>CNN Architecture</h2>
+								<p>
+									Designed a lightweight convolutional neural network optimized for medical image classification:
+								</p>
+
+								<h3>Network Structure</h3>
+								<pre><code>Input Layer: 128×128×1 (grayscale image)
+    ↓
+Conv Block 1: 32 filters, 3×3 kernel, ReLU activation
+MaxPool: 2×2
+    ↓
+Conv Block 2: 64 filters, 3×3 kernel, ReLU activation
+MaxPool: 2×2
+    ↓
+Conv Block 3: 128 filters, 3×3 kernel, ReLU activation
+MaxPool: 2×2
+    ↓
+Flatten Layer
+    ↓
+Dense Layer: 256 neurons, ReLU, Dropout (0.5)
+    ↓
+Output Layer: 2 neurons, Softmax (Simple vs. Comminuted)
+
+Total Parameters: ~790,000</code></pre>
+
+								<h3>Key Design Choices</h3>
+								<ul>
+									<li><strong>ReLU Activation:</strong> Faster training, prevents vanishing gradients</li>
+									<li><strong>MaxPooling:</strong> Spatial downsampling, translation invariance</li>
+									<li><strong>Dropout (50%):</strong> Regularization to prevent overfitting</li>
+									<li><strong>Batch Normalization:</strong> Stabilizes training, allows higher learning rates</li>
+								</ul>
+
+								<!-- Training Process -->
+								<h2>Training Process</h2>
+
+								<h3>Hyperparameters</h3>
+								<ul>
+									<li><strong>Optimizer:</strong> Adam (adaptive learning rate)</li>
+									<li><strong>Initial Learning Rate:</strong> 0.001</li>
+									<li><strong>Batch Size:</strong> 32 images</li>
+									<li><strong>Epochs:</strong> 50 (with early stopping)</li>
+									<li><strong>Loss Function:</strong> Categorical Cross-Entropy</li>
+								</ul>
+
+								<h3>Learning Rate Scheduling</h3>
+								<p>
+									Implemented ReduceLROnPlateau to improve convergence:
+								</p>
+								<ul>
+									<li>Monitor validation loss every epoch</li>
+									<li>If no improvement for 5 epochs → reduce LR by factor of 0.5</li>
+									<li>Minimum learning rate: 1e-6</li>
+									<li>Allows fine-tuning in later training stages</li>
+								</ul>
+
+								<h3>Early Stopping</h3>
+								<p>
+									Prevented overfitting by monitoring validation performance:
+								</p>
+								<ul>
+									<li>Patience: 10 epochs without validation improvement</li>
+									<li>Restore best model weights before stopping</li>
+									<li>Saved computational resources</li>
+								</ul>
+
+								<!-- Results & Performance -->
+								<h2>Results & Performance Metrics</h2>
+
+								<h3>Final Model Accuracy</h3>
+								<ul>
+									<li><strong>Training Accuracy:</strong> 96.3%</li>
+									<li><strong>Validation Accuracy:</strong> 93.1%</li>
+									<li><strong>Test Accuracy:</strong> 94.7%</li>
+								</ul>
+
+								<h3>Confusion Matrix (Test Set)</h3>
+								<table style="width: 100%; border-collapse: collapse; margin: 1em 0; text-align: center;">
+									<tr style="background: #2c3e50; color: white;">
+										<th style="padding: 0.5em; border: 1px solid #34495e;"></th>
+										<th style="padding: 0.5em; border: 1px solid #34495e;">Predicted: Simple</th>
+										<th style="padding: 0.5em; border: 1px solid #34495e;">Predicted: Comminuted</th>
+									</tr>
+									<tr>
+										<td style="padding: 0.5em; border: 1px solid #34495e; background: #34495e; color: white;"><strong>Actual: Simple</strong></td>
+										<td style="padding: 0.5em; border: 1px solid #34495e; background: #d4edda;">1156 (True Positive)</td>
+										<td style="padding: 0.5em; border: 1px solid #34495e; background: #f8d7da;">68 (False Negative)</td>
+									</tr>
+									<tr>
+										<td style="padding: 0.5em; border: 1px solid #34495e; background: #34495e; color: white;"><strong>Actual: Comminuted</strong></td>
+										<td style="padding: 0.5em; border: 1px solid #34495e; background: #f8d7da;">58 (False Positive)</td>
+										<td style="padding: 0.5em; border: 1px solid #34495e; background: #d4edda;">1118 (True Negative)</td>
+									</tr>
+								</table>
+
+								<h3>Classification Report</h3>
+								<ul>
+									<li><strong>Precision (Simple):</strong> 95.2%</li>
+									<li><strong>Recall (Simple):</strong> 94.4%</li>
+									<li><strong>F1-Score (Simple):</strong> 94.8%</li>
+									<li><strong>Precision (Comminuted):</strong> 94.3%</li>
+									<li><strong>Recall (Comminuted):</strong> 95.1%</li>
+									<li><strong>F1-Score (Comminuted):</strong> 94.7%</li>
+								</ul>
+
+								<!-- Real-Time Inference -->
+								<h2>Real-Time Inference System</h2>
+								<p>
+									Deployed the model for real-time X-ray classification:
+								</p>
+
+								<h3>Inference Pipeline</h3>
+								<ol>
+									<li>Load unseen X-ray image (any resolution)</li>
+									<li>Apply CLAHE preprocessing</li>
+									<li>Resize to 128×128 pixels</li>
+									<li>Normalize pixel values</li>
+									<li>Forward pass through CNN</li>
+									<li>Softmax output → classification probability</li>
+									<li>Display result with confidence score</li>
+								</ol>
+
+								<h3>Performance Metrics</h3>
+								<ul>
+									<li><strong>Inference Time (CPU):</strong> ~0.18 seconds per image</li>
+									<li><strong>Inference Time (GPU):</strong> ~0.04 seconds per image</li>
+									<li><strong>Model Size:</strong> 9.5 MB (compressed)</li>
+									<li><strong>Memory Usage:</strong> <200 MB RAM</li>
+								</ul>
+
+								<h3>Deployment Options</h3>
+								<ul>
+									<li>Python script for batch processing</li>
+									<li>Flask web application for browser-based inference</li>
+									<li>TensorFlow Lite for mobile deployment</li>
+									<li>ONNX export for cross-platform compatibility</li>
+								</ul>
+
+								<!-- Challenges & Solutions -->
+								<h2>Challenges & Solutions</h2>
+								<div class="box">
+									<h4>Challenge: Class Imbalance in Dataset</h4>
+									<p><strong>Solution:</strong> Applied data augmentation more aggressively to minority class. 
+									Used class weights during training to penalize misclassification of rare class. Achieved 
+									balanced precision/recall across both classes.</p>
+
+									<h4>Challenge: Overfitting on Training Data</h4>
+									<p><strong>Solution:</strong> Implemented dropout (50%) in dense layers. Added L2 regularization 
+									to convolutional layers. Used early stopping based on validation loss. Increased training data 
+									through augmentation.</p>
+
+									<h4>Challenge: Variable Image Quality</h4>
+									<p><strong>Solution:</strong> CLAHE preprocessing standardized contrast across different X-ray 
+									machines and exposure settings. Data augmentation simulated various imaging conditions. Robust 
+									normalization handled brightness variations.</p>
+
+									<h4>Challenge: Computational Constraints</h4>
+									<p><strong>Solution:</strong> Downsized images to 128×128 (instead of 256×256) without 
+									significant accuracy loss. Used lightweight CNN architecture. Optimized batch size for 
+									available GPU memory. Achieved <1 second inference on CPU.</p>
+								</div>
+
+								<!-- Tools & Technologies -->
+								<h2>Tools & Technologies</h2>
+								<div class="box">
+									<p><strong>Deep Learning:</strong> TensorFlow 2.x, Keras API, Python 3.8</p>
+									<p><strong>Image Processing:</strong> OpenCV, NumPy, Pillow, CLAHE</p>
+									<p><strong>Data Handling:</strong> Pandas, ImageDataGenerator, train_test_split</p>
+									<p><strong>Training:</strong> Adam Optimizer, ReduceLROnPlateau, Early Stopping, GPU Acceleration (CUDA)</p>
+									<p><strong>Evaluation:</strong> Confusion Matrix, Classification Report, Precision/Recall/F1-Score, ROC-AUC</p>
+									<p><strong>Visualization:</strong> Matplotlib, Seaborn, TensorBoard</p>
+								</div>
+
+								<!-- Key Learnings -->
+								<h2>Key Learnings</h2>
+								<p>
+									This project provided hands-on experience with the complete machine learning workflow for medical 
+									imaging. Learned the critical importance of preprocessing in medical image analysis, particularly 
+									contrast enhancement for X-rays. Understood the balance between model complexity and inference 
+									speed for real-world deployment. Gained expertise in handling imbalanced datasets, preventing 
+									overfitting through regularization, and evaluating classification models beyond simple accuracy.
+								</p>
+
+								<!-- Future Enhancements -->
+								<h2>Future Enhancements</h2>
+								<ul>
+									<li>Expand to multi-class classification (multiple fracture types)</li>
+									<li>Implement transfer learning using pre-trained models (ResNet, EfficientNet)</li>
+									<li>Add explainability with Grad-CAM to highlight fracture regions</li>
+									<li>Deploy as cloud-based API for hospital integration</li>
+									<li>Create ensemble model combining multiple CNNs</li>
+									<li>Explore 3D CNN for CT scan analysis</li>
+									<li>Implement federated learning for privacy-preserving training</li>
+								</ul>
+
+								<!-- Ethical Considerations -->
+								<h2>Ethical Considerations</h2>
+								<p>
+									As a medical AI system, important considerations include:
+								</p>
+								<ul>
+									<li><strong>Clinical Validation:</strong> Requires rigorous testing before clinical deployment</li>
+									<li><strong>Regulatory Approval:</strong> Must meet FDA guidelines for medical devices</li>
+									<li><strong>Physician Oversight:</strong> AI as decision support, not replacement for doctors</li>
+									<li><strong>Patient Privacy:</strong> HIPAA compliance for medical image handling</li>
+									<li><strong>Bias Mitigation:</strong> Ensure performance across diverse patient demographics</li>
+								</ul>
+
+								<!-- Back Navigation -->
+								<ul class="actions special">
+									<li><a href="../index.html#projects" class="button large">← Back to All Projects</a></li>
+								</ul>
+
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<section>
+							<h3>Contact</h3>
+							<ul style="list-style: none; padding: 0;">
+								<li><a href="mailto:yogeshsalvi09032000@gmail.com">yogeshsalvi09032000@gmail.com</a></li>
+							</ul>
+						</section>
+						<section>
+							<h3>Social</h3>
+							<ul class="icons alt">
+								<li><a href="https://www.linkedin.com/in/yogesh-salvi-robotics" target="_blank" rel="noopener" class="icon brands alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
+								<li><a href="https://github.com/yogeshsalvi09032000" target="_blank" rel="noopener" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+							</ul>
+						</section>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+
+	</body>
+</html>

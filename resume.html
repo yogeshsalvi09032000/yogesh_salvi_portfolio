@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yogesh Pradeep Salvi | Resume</title>
+  <meta name="description" content="Resume of Yogesh Pradeep Salvi - Robotics and Autonomous Systems (ASU)" />
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --card:#111824;
+      --text:#e8eef7;
+      --muted:#b6c2d2;
+      --accent:#4da3ff;
+      --rule:#223044;
+      --chip:#162235;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif;
+      background: radial-gradient(1200px 800px at 20% 0%, #12233a 0%, var(--bg) 55%);
+      color:var(--text);
+      line-height:1.45;
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 28px 18px 60px;
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    }
+    header{
+      display:flex;
+      gap:16px;
+      align-items:flex-start;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .name{
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      margin: 0 0 6px;
+    }
+    .subtitle{
+      margin:0;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .contact{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      align-items:center;
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 6px;
+    }
+    .contact a{
+      color: inherit;
+      text-decoration: none;
+    }
+    .contact a:hover span{
+      background: rgba(77,163,255,0.15);
+      border-color: rgba(77,163,255,0.25);
+    }
+    .contact span{
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 6px 10px;
+      border-radius: 999px;
+      transition: all 0.2s ease;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+    @media (max-width: 900px){
+      .grid{grid-template-columns: 1fr}
+      .contact{justify-content:flex-start}
+    }
+    h2{
+      font-size: 16px;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 18px 0 10px;
+    }
+    .section{
+      padding-top: 6px;
+      border-top: 1px solid var(--rule);
+      margin-top: 14px;
+    }
+    .item{
+      margin: 12px 0 0;
+    }
+    .item-title{
+      display:flex;
+      justify-content:space-between;
+      gap: 10px;
+      flex-wrap:wrap;
+      font-weight: 700;
+      font-size: 16px;
+    }
+    .item-title a{
+      color: var(--text);
+      font-weight: 700;
+    }
+    .item-title a:hover{
+      color: var(--accent);
+    }
+    .item-meta{
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 13px;
+    }
+    ul{
+      margin: 8px 0 0 18px;
+      padding: 0;
+      color: var(--text);
+    }
+    li{margin: 6px 0}
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top: 10px;
+    }
+    .chip{
+      background: rgba(77,163,255,0.10);
+      border: 1px solid rgba(77,163,255,0.18);
+      color: var(--text);
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      white-space:nowrap;
+    }
+    .muted{color:var(--muted)}
+    .btns{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top: 14px;
+    }
+    .btn{
+      display:inline-block;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .btn:hover{background: rgba(255,255,255,0.07)}
+    .btn.primary{
+      border-color: rgba(77,163,255,0.35);
+      background: rgba(77,163,255,0.14);
+    }
+    footer{
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 12px;
+      text-align:center;
+    }
+    @media print{
+      body{background:#fff;color:#000}
+      .card{box-shadow:none;border:1px solid #ddd;background:#fff}
+      a{color:#000;text-decoration:none}
+      .chip{border:1px solid #bbb;background:#f4f4f4;color:#000}
+      .btns{display:none}
+      .contact span{border:1px solid #ddd;background:#fff;color:#000}
+      .section{border-top:1px solid #ddd}
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="card">
+      <header>
+        <div>
+          <h1 class="name">Yogesh Pradeep Salvi</h1>
+          <p class="subtitle">Robotics & Autonomous Systems (M.S.), Arizona State University</p>
+          <div class="btns">
+            <a class="btn primary" href="./YOGESH_SALVI_RESUME.pdf" target="_blank" rel="noopener">Download PDF</a>
+            <a class="btn" href="mailto:yogeshsalvi09032000@gmail.com">Email Me</a>
+            <a class="btn" href="https://www.linkedin.com/in/yogesh-salvi-robotics" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="btn" href="https://github.com/yogeshsalvi09032000" target="_blank" rel="noopener">GitHub</a>
+            <a class="btn" href="index.html">Portfolio</a>
+          </div>
+        </div>
+        <div class="contact">
+          <a href="tel:+16232737996"><span>📞 (623) 273-7996</span></a>
+          <a href="mailto:yogeshsalvi09032000@gmail.com"><span>✉️ yogeshsalvi09032000@gmail.com</span></a>
+          <a href="https://www.linkedin.com/in/yogesh-salvi-robotics" target="_blank" rel="noopener"><span>🔗 LinkedIn</span></a>
+          <a href="https://github.com/yogeshsalvi09032000" target="_blank" rel="noopener"><span>💻 GitHub</span></a>
+        </div>
+      </header>
+
+      <div class="grid">
+        <!-- LEFT COLUMN -->
+        <div>
+          <section class="section">
+            <h2>Summary</h2>
+            <p class="muted">
+              Robotics and Autonomous Systems MS candidate (May 2026) with hands-on experience in robot manipulation, embedded control, 
+              computer vision, and system integration. Proven ability to deliver technical solutions in high uptime environments with 
+              measurable performance improvements across hardware and software systems.
+            </p>
+          </section>
+
+          <section class="section">
+            <h2>Education</h2>
+
+            <div class="item">
+              <div class="item-title">
+                <div>M.S., Robotics and Autonomous Systems</div>
+                <div class="item-meta">Expected May 2026</div>
+              </div>
+              <div class="muted">Arizona State University, Tempe, AZ</div>
+              <p class="muted" style="font-size: 13px; margin-top: 4px;">
+                <strong>Coursework:</strong> Robotic Systems, Mechatronics, Control Systems, Embedded Systems, Machine Learning, Computer Vision, Sensors & Instrumentation
+              </p>
+            </div>
+
+            <div class="item">
+              <div class="item-title">
+                <div>B.E., Electronics and Telecommunication</div>
+                <div class="item-meta">Spring 2022</div>
+              </div>
+              <div class="muted">Terna Engineering College, Navi Mumbai, India</div>
+              <p class="muted" style="font-size: 13px; margin-top: 4px;">
+                <strong>Coursework:</strong> Microprocessors, Digital/Analog Electronics, Embedded Systems, Signals and Systems, Control Systems, DSP
+              </p>
+            </div>
+          </section>
+
+          <section class="section">
+            <h2>Professional Experience</h2>
+
+            <div class="item">
+              <div class="item-title">
+                <div>Junior IT and Broadcast Systems Engineer</div>
+                <div class="item-meta">Jun 2023 – Jun 2024</div>
+              </div>
+              <div class="muted">Pudhari Publications, India</div>
+              <ul>
+                <li>To ensure zero-downtime during daily broadcast windows, applied systems-level fault isolation across AV and IT hardware to keep production consistently high.</li>
+                <li>Diagnosed hardware and software faults to reduce equipment downtime using root-cause analysis across multi-component systems.</li>
+                <li>Standardized AV deployment procedures and technical documentation, improving setup consistency and fault resolution speed.</li>
+              </ul>
+            </div>
+
+            <div class="item">
+              <div class="item-title">
+                <div>Systems Integration Intern</div>
+                <div class="item-meta">Jul 2022 – Dec 2022</div>
+              </div>
+              <div class="muted">Cineom Broadcasting, India</div>
+              <ul>
+                <li>Integrated AV systems across live deployments, performing hardware-software co-verification transferable to robotic system bring-up.</li>
+                <li>When network and hardware outages threatened live productions, applied structured fault isolation across system layers to identify and resolve root causes quickly.</li>
+                <li>Created deployment documentation that cuts setup and troubleshooting time, demonstrating systems-thinking and process discipline.</li>
+              </ul>
+            </div>
+          </section>
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <aside>
+          <section class="section">
+            <h2>Technical Skills</h2>
+
+            <div class="item">
+              <div class="item-title"><div>Languages</div></div>
+              <div class="chips">
+                <span class="chip">Python</span><span class="chip">C</span><span class="chip">C++</span><span class="chip">MATLAB</span><span class="chip">Java</span>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="item-title"><div>Robotics & Simulation</div></div>
+              <div class="chips">
+                <span class="chip">ROS/ROS2</span><span class="chip">Gazebo</span><span class="chip">MuJoCo</span>
+                <span class="chip">Simulink</span><span class="chip">Rviz</span><span class="chip">Move Base</span>
+                <span class="chip">AMCL</span><span class="chip">Navigation Stack</span>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="item-title"><div>Embedded Systems</div></div>
+              <div class="chips">
+                <span class="chip">Arduino</span><span class="chip">ESP32</span><span class="chip">Raspberry Pi</span>
+                <span class="chip">I2C/SPI</span><span class="chip">PWM</span><span class="chip">ADC/DAC</span>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="item-title"><div>ML & Vision</div></div>
+              <div class="chips">
+                <span class="chip">OpenCV</span><span class="chip">TensorFlow</span>
+                <span class="chip">Computer Vision</span><span class="chip">Image Processing</span>
+                <span class="chip">Feature Detection</span>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="item-title"><div>Design & CAD</div></div>
+              <div class="chips">
+                <span class="chip">SolidWorks</span><span class="chip">Fusion 360</span>
+                <span class="chip">AutoCAD</span><span class="chip">3D Printing</span>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="item-title"><div>Tools & Frameworks</div></div>
+              <div class="chips">
+                <span class="chip">Git/GitHub</span><span class="chip">Linux</span>
+                <span class="chip">Jupyter</span><span class="chip">VS Code</span>
+              </div>
+            </div>
+          </section>
+        </aside>
+      </div>
+
+      <section class="section">
+        <h2>Projects</h2>
+
+        <div class="item">
+          <div class="item-title">
+            <div><a href="projects/systems-engineering.html">Feature Point Tracking using OpenCV</a></div>
+            <div class="item-meta">Spring 2025</div>
+          </div>
+          <ul>
+            <li>Deployed ROS on Jetson Nano with Astra RGB-D camera and OpenCV for real-time object tracking at 30 FPS, achieving 95% detection accuracy.</li>
+            <li>Wired the vision output into ROS navigation so the robot could track and follow objects in closed loop without offloading compute.</li>
+            <li>Debugged ROS nodes and optimized sensor-to-actuator pipeline, reducing frame drops by 40% and ensuring reliable continuous operation.</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <div class="item-title">
+            <div><a href="projects/rosmaster-navigation.html">ROSMASTER Autonomous Navigation</a></div>
+            <div class="item-meta">Fall 2024</div>
+          </div>
+          <ul>
+            <li>Developed complete autonomous navigation system with digital twin in AWS warehouse environment using AMCL localization and move_base framework.</li>
+            <li>Implemented custom A* global planner and DWA local planner achieving 95%+ goal success rate in simulation.</li>
+            <li>Integrated ArUco marker detection for visual sign recognition enabling adaptive navigation behaviors.</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <div class="item-title">
+            <div><a href="projects/cobot-manipulation.html">6-DOF Cobot Arm Manipulation</a></div>
+            <div class="item-meta">Spring 2025</div>
+          </div>
+          <ul>
+            <li>Built autonomous maze-solving pipeline using OpenCV visual planning and Python kinematics, executing collision-free paths on a 6-DOF arm.</li>
+            <li>Cross-checked FK and IK in MATLAB against the physical arm to confirm consistent end-effector accuracy across the workspace.</li>
+            <li>Optimized trajectory interpolation algorithm to reduce actuator jerk by 25%, improving smoothness and extending mechanical component life.</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <div class="item-title">
+            <div><a href="projects/line-follower.html">Closed-Loop Path Tracking Robot</a></div>
+            <div class="item-meta">Fall 2024</div>
+          </div>
+          <ul>
+            <li>Designed PID closed-loop controller in Simulink achieving stable path tracking with real-time encoder feedback on Arduino-based hardware.</li>
+            <li>Tuned PID gains through systematic iterative testing to minimize steady-state tracking error across varying speed profiles and surface conditions.</li>
+            <li>Validated controller performance by logging and analyzing real-time motor speed and trajectory data across multiple structured test scenarios.</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <div class="item-title">
+            <div><a href="projects/flying-bat.html">Mechanical Flying Bat</a></div>
+            <div class="item-meta">Fall 2024</div>
+          </div>
+          <ul>
+            <li>Engineered bio-inspired foldable wing mechanism with ESP32 and IMU feedback for servo-driven actuation simulated adaptive gait in MuJoCo.</li>
+            <li>Implemented closed-loop stabilization using IMU sensor fusion to dynamically adjust servo positions and maintain controlled, stable wing actuation.</li>
+            <li>Improved glide distance by 35% through iterative wing geometry optimization, balancing aerodynamic lift-to-weight ratio against actuator constraints.</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <div class="item-title">
+            <div><a href="projects/waveform-generator.html">Portable Waveform Generator</a></div>
+            <div class="item-meta">Spring 2022</div>
+          </div>
+          <ul>
+            <li>Designed ATmega328-based SMD embedded circuit generating stable sine, square, and triangle waveforms using Op-Amp-based signal conditioning.</li>
+            <li>Implemented firmware control logic for frequency and amplitude adjustment, enabling configurable waveform output across a defined parameter range.</li>
+            <li>Led 3-member team through full hardware build, integration, and field validation cycle, delivering a tested portable instrument for deployment.</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <div class="item-title">
+            <div><a href="projects/quarantine-system.html">Automated Quarantine Management System</a></div>
+            <div class="item-meta">Spring 2021</div>
+          </div>
+          <ul>
+            <li>Built IoT-based health monitoring and tracking system for quarantine facility management during COVID-19 pandemic.</li>
+            <li>Integrated multiple sensors with cloud database for real-time monitoring and automated alerting capabilities.</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <div class="item-title">
+            <div><a href="projects/ml-fracture.html">ML-Based Fracture Detection</a></div>
+            <div class="item-meta">Fall 2021</div>
+          </div>
+          <ul>
+            <li>Developed machine learning model for automated bone fracture detection from X-ray images using computer vision techniques.</li>
+            <li>Achieved high accuracy in classification tasks enabling rapid diagnostic support for medical applications.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Other Experience</h2>
+        <ul>
+          <li><strong><a href="projects/parkinsons-glove.html" style="color: var(--text); border-bottom: 1px dotted var(--accent);">Parkinson's Assistive Glove</a>:</strong> Developed wearable bilateral haptic device with dual ESP32 architecture, 8-motor VCR system, and Web Bluetooth control for tremor reduction.</li>
+          <li><strong>Combat Robot (15 kg):</strong> Led 3-member team to design and build a 15 kg combat robot redesigned drivetrain for improved durability and achieved competitive event wins.</li>
+          <li><strong>Sun Devil Motorsports (Formula SAE):</strong> Performed brake load calculations and fabricated components for ASU's Formula SAE race car.</li>
+        </ul>
+      </section>
+
+      <footer>
+        © <span id="year"></span> Yogesh Pradeep Salvi
+      </footer>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

@@ -1,0 +1,450 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Parkinson's Assistive Glove - Yogesh Salvi</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="description" content="Wearable haptic device for Parkinson's tremor reduction using vibrotactile cueing" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<a href="../index.html" class="logo">← Back to Portfolio</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li><a href="../index.html">Portfolio</a></li>
+							<li><a href="../resume.html">Resume</a></li>
+							<li><a href="../index.html#aboutme">About Me</a></li>
+						</ul>
+						<ul class="icons">
+							<li><a href="https://www.linkedin.com/in/yogesh-salvi-robotics" target="_blank" rel="noopener" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+							<li><a href="https://github.com/yogeshsalvi09032000" target="_blank" rel="noopener" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+							<li><a href="mailto:yogeshsalvi09032000@gmail.com" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<header class="major">
+									<span class="date">Spring 2026 - Side Quest</span>
+									<h1>Parkinson's Disease<br />Assistive Glove</h1>
+									<p>Wearable Haptic Device for Tremor Reduction Using Vibrotactile Cueing</p>
+								</header>
+
+								<!-- Hero Image -->
+								<div class="image main">
+									<img src="../images/parkinsons-glove.jpg" alt="Parkinson's Glove prototype components" />
+								</div>
+
+								<!-- Video Demonstration -->
+								<h2>System Demonstration</h2>
+								<p>
+									Watch the glove in action demonstrating synchronized bilateral haptic stimulation with VCR pattern generation:
+								</p>
+								<div style="max-width: 600px; margin: 0 auto 2em;">
+									<div style="position: relative; padding-bottom: 177.78%; height: 0; overflow: hidden;">
+										<iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
+										        src="https://www.youtube.com/embed/c9KoU7JvKmo" 
+										        frameborder="0" allowfullscreen>
+										</iframe>
+									</div>
+								</div>
+
+								<!-- Project Overview -->
+								<h2>Project Overview</h2>
+								<p>
+									Developed a wearable haptic glove system designed to reduce hand tremors in Parkinson's disease patients 
+									through precisely timed vibrotactile cues. The system uses Variable Frequency Complex Repetitive (VCR) 
+									stimulation patterns delivered through Linear Resonant Actuators (LRAs) positioned on each finger, achieving 
+									synchronized bilateral stimulation across both hands via wireless ESP-NOW communication.
+								</p>
+
+								<!-- Key Features -->
+								<h2>Key Features</h2>
+								<ul>
+									<li><strong>Bilateral Haptic Stimulation:</strong> Synchronized 4-motor arrays on both hands (8 motors total)</li>
+									<li><strong>VCR Pattern Generation:</strong> Variable frequency complex repetitive stimulation patterns using 24 permutations</li>
+									<li><strong>Wireless Synchronization:</strong> ESP-NOW protocol for sub-20ms latency between master and slave gloves</li>
+									<li><strong>Web Bluetooth Control:</strong> Progressive Web App (PWA) for wireless parameter tuning via smartphone</li>
+									<li><strong>Persistent Settings:</strong> NVS (Non-Volatile Storage) for parameter retention across power cycles</li>
+									<li><strong>3D Printed Enclosures:</strong> Custom finger-mounted housings for LRA motors</li>
+									<li><strong>Dual ESP32 Architecture:</strong> Separate microcontrollers for master (left) and slave (right) hands</li>
+									<li><strong>DRV2605 Motor Drivers:</strong> Professional haptic driver ICs with waveform library</li>
+								</ul>
+
+								<!-- System Architecture -->
+								<h2>System Architecture</h2>
+
+								<h3>Hardware Components</h3>
+								<ul>
+									<li><strong>Microcontrollers:</strong> 2× ESP32 DevKit (Master: 00:4B:12:3B:73:3C, Slave: 00:4B:12:3A:A9:94)</li>
+									<li><strong>Haptic Drivers:</strong> 8× Adafruit DRV2605L Haptic Motor Controllers</li>
+									<li><strong>Motors:</strong> 8× Linear Resonant Actuators (LRA) - precision vibration motors</li>
+									<li><strong>I2C Multiplexer:</strong> 2× TCA9548A (1×8 I2C multiplexer) for addressing 4 DRV2605 per hand</li>
+									<li><strong>Enclosures:</strong> 8× Custom 3D-printed finger mounts</li>
+									<li><strong>Power:</strong> Dual battery system (one per glove) for independent operation</li>
+								</ul>
+
+								<h3>Communication Architecture</h3>
+								<p>
+									The system employs a master-slave wireless architecture:
+								</p>
+								<ul>
+									<li><strong>Master Glove (Left Hand):</strong> Pure ESP-NOW operation, reads settings from NVS, generates VCR patterns, broadcasts sync packets to slave</li>
+									<li><strong>Slave Glove (Right Hand):</strong> Dual-radio operation - BLE for smartphone control, ESP-NOW for receiving master sync, writes settings to shared NVS</li>
+									<li><strong>ESP-NOW Protocol:</strong> <20ms latency, reliable packet delivery, no WiFi infrastructure required</li>
+									<li><strong>BLE GATT Server:</strong> Custom service (UUID: 4fafc201-1fb5-459e-8fcc-c5c9c331914b) with 3 characteristics for MA, PD, BD parameters</li>
+								</ul>
+
+								<!-- Technical Implementation -->
+								<h2>Technical Implementation</h2>
+
+								<h3>VCR Stimulation Pattern</h3>
+								<p>
+									The Variable Frequency Complex Repetitive (VCR) pattern is designed to disrupt tremor oscillations through 
+									carefully timed haptic cues:
+								</p>
+								<ul>
+									<li><strong>Pattern Structure:</strong> 3 sequential periods, each activating all 4 motors in randomized order</li>
+									<li><strong>Permutation Table:</strong> 24 possible motor firing orders to prevent habituation</li>
+									<li><strong>Burst Duration (BD):</strong> 50-150ms per motor activation (default: 100ms)</li>
+									<li><strong>Pattern Duration (PD):</strong> 500-1000ms total cycle time (default: 744ms)</li>
+									<li><strong>Motor Amplitude (MA):</strong> 50-100% intensity mapped to DRV2605 effects 1-14</li>
+									<li><strong>Quiet Period:</strong> 2× PD between pattern cycles to allow neural reset</li>
+								</ul>
+
+								<h3>I2C Multiplexing Strategy</h3>
+								<p>
+									Since DRV2605 drivers have fixed I2C addresses, TCA9548A multiplexers enable 4 drivers per ESP32:
+								</p>
+								<ul>
+									<li>Each DRV2605 connects to a dedicated TCA9548A channel (0-3)</li>
+									<li>Software selects active channel before each motor command</li>
+									<li>Prevents address conflicts while maintaining independent motor control</li>
+									<li>5ms settling delay after channel switching ensures reliable communication</li>
+								</ul>
+
+								<h3>Firmware Architecture</h3>
+
+								<h4>Master Glove (GloveMaster.ino)</h4>
+								<ul>
+									<li>Pure ESP-NOW operation (no BLE to avoid radio conflicts)</li>
+									<li>Loads settings from NVS written by slave glove</li>
+									<li>Generates random VCR patterns using 24-permutation table</li>
+									<li>Broadcasts GloveSync packet to slave before each pattern</li>
+									<li>Executes synchronized motor firing sequence</li>
+									<li>Operates in continuous loop with 2×PD quiet periods</li>
+								</ul>
+
+								<h4>Slave Glove (GloveSlave.ino)</h4>
+								<ul>
+									<li>Dual-radio operation: BLE + ESP-NOW</li>
+									<li>BLE GATT server exposes 3 characteristics (MA, PD, BD)</li>
+									<li>Writes received BLE parameters to NVS (shared with master)</li>
+									<li>ESP-NOW receiver waits for master sync packets</li>
+									<li>Executes identical VCR pattern synchronized to master</li>
+									<li>Callbacks ensure atomic parameter updates</li>
+								</ul>
+
+								<!-- Web App Control -->
+								<h2>Web Bluetooth Control Interface</h2>
+								<p>
+									Developed a Progressive Web App using Web Bluetooth API for wireless parameter adjustment:
+								</p>
+
+								<h3>Features</h3>
+								<ul>
+									<li><strong>Cross-Platform:</strong> Works on Chrome for Android (Web Bluetooth supported)</li>
+									<li><strong>Real-Time Control:</strong> Adjust Motor Amplitude, Burst Duration, Pattern Duration via sliders</li>
+									<li><strong>Persistent Connection:</strong> Maintains BLE GATT connection with automatic reconnect</li>
+									<li><strong>Batch Updates:</strong> "Send All Parameters" button for synchronized updates</li>
+									<li><strong>Visual Feedback:</strong> Connection status indicator with scanning/connected/error states</li>
+									<li><strong>Mobile-Optimized:</strong> Touch-friendly interface with responsive design</li>
+								</ul>
+
+								<h3>BLE Service Specification</h3>
+								<ul>
+									<li><strong>Service UUID:</strong> 4fafc201-1fb5-459e-8fcc-c5c9c331914b</li>
+									<li><strong>Characteristic 1 (MA):</strong> beb5483e-36e1-4688-b7f5-ea07361b26a8 (Motor Amplitude)</li>
+									<li><strong>Characteristic 2 (PD):</strong> e3223119-9445-4e96-a4a1-85358c4046a2 (Pattern Duration)</li>
+									<li><strong>Characteristic 3 (BD):</strong> e3223119-9445-4e96-a4a1-85358c4046a3 (Burst Duration)</li>
+								</ul>
+
+								<!-- Challenges & Solutions -->
+								<h2>Challenges & Solutions</h2>
+								<div class="box">
+									<h4>Challenge: BLE and ESP-NOW Compilation Conflicts</h4>
+									<p><strong>Problem:</strong> Initial attempts to run both BLE GATT server and ESP-NOW receiver on the 
+									same ESP32 resulted in compilation errors with conflicting WiFi radio states and library header clashes. 
+									The ESP32's single 2.4GHz radio must be carefully managed when using multiple wireless protocols.</p>
+									<p><strong>Solution:</strong> Implemented asymmetric architecture - master glove runs pure ESP-NOW 
+									(WiFi STA mode only), while slave glove handles all BLE communication (peripheral mode). Both protocols can 
+									coexist on the slave ESP32 because BLE peripheral and ESP-NOW use different radio timeslots. Thoroughly tested 
+									radio coexistence with packet loss monitoring to ensure <1% failure rate.</p>
+
+									<h4>Challenge: Library Version Incompatibilities</h4>
+									<p><strong>Problem:</strong> ESP32 Arduino core updates broke existing Adafruit_DRV2605 library calls, 
+									causing undefined reference errors during linking. The I2C Wire library API changed between core versions 
+									1.0.6 and 2.0.x, requiring different initialization sequences.</p>
+									<p><strong>Solution:</strong> Pinned ESP32 Arduino core to version 2.0.11 in platformio.ini and updated 
+									Wire.begin() calls to explicitly specify SDA/SCL pins (21, 22). Added verbose compiler flags to catch 
+									deprecated API usage early. Documented exact library versions in project README for reproducibility.</p>
+
+									<h4>Challenge: I2C Address Conflicts with Multiple DRV2605</h4>
+									<p><strong>Problem:</strong> DRV2605 haptic drivers have a fixed I2C address (0x5A), making it impossible 
+									to connect more than one directly to the ESP32's I2C bus. Initial attempts with software I2C proved unreliable 
+									at motor control speeds.</p>
+									<p><strong>Solution:</strong> Implemented TCA9548A I2C multiplexer topology. Each motor driver connects 
+									to a dedicated multiplexer channel, selected via software before each command. Added 5ms settling delay after 
+									channel switching to ensure reliable communication. This scales to 8 motors per multiplexer (only using 4 per hand).</p>
+
+									<h4>Challenge: Bilateral Synchronization Latency</h4>
+									<p><strong>Problem:</strong> Initial BLE-based synchronization between gloves exhibited 100-200ms latency 
+									due to GATT notification overhead, connection interval constraints, and packet queuing. This caused visible 
+									motor firing delays between hands, reducing therapeutic effectiveness.</p>
+									<p><strong>Solution:</strong> Switched to ESP-NOW protocol for inter-glove communication. ESP-NOW achieves 
+									<20ms latency through direct MAC-layer packets without connection overhead. Master sends sync packet with 
+									pattern permutations and timing parameters before firing, ensuring both gloves start within one motor 
+									burst duration. Verified synchronization with oscilloscope measurements.</p>
+
+									<h4>Challenge: Parameter Persistence Without Re-Pairing</h4>
+									<p><strong>Problem:</strong> Settings adjusted via BLE app were lost on power cycle. Real-time BLE broadcasts 
+									from slave to master proved unreliable during active motor patterns due to radio contention and packet collisions.</p>
+									<p><strong>Solution:</strong> Implemented shared NVS (Non-Volatile Storage) namespace between master and slave. 
+									Slave writes BLE-received parameters to flash memory; master reads from same namespace on each loop iteration. 
+									Settings survive power cycles without requiring active BLE connection. NVS wear leveling ensures 100,000+ write 
+									cycles before flash degradation.</p>
+
+									<h4>Challenge: Motor Habituation to Repetitive Patterns</h4>
+									<p><strong>Problem:</strong> Fixed motor firing sequences led to neural habituation - patients' tremor reduction 
+									decreased after 15-20 minutes of use as the nervous system adapted to predictable stimulation patterns.</p>
+									<p><strong>Solution:</strong> Implemented 24-permutation lookup table for randomized motor firing sequences. 
+									Each VCR cycle uses 3 randomly selected permutations, creating 13,824 possible pattern combinations. Added 
+									pseudo-random seed based on analogRead() to ensure different patterns across power cycles. Quiet periods 
+									(2× pattern duration) between cycles prevent continuous habituation.</p>
+
+									<h4>Challenge: Debugging Multi-Device Wireless Systems</h4>
+									<p><strong>Problem:</strong> Traditional Serial debugging only shows one ESP32 at a time. Synchronization issues 
+									between master and slave were difficult to diagnose without seeing both devices' states simultaneously.</p>
+									<p><strong>Solution:</strong> Implemented verbose logging with timestamp prefixes and device identifiers. Used 
+									dual USB connections to monitor both gloves in separate terminal windows. Added ESP-NOW callback debugging to 
+									log packet send/receive events. Integrated LED feedback (built-in LED flashes during pattern execution) for 
+									visual confirmation of motor timing without serial connection.</p>
+								</div>
+
+								<!-- Tools & Technologies -->
+								<h2>Tools & Technologies</h2>
+								<div class="box">
+									<p><strong>Microcontrollers:</strong> ESP32 DevKit, Dual-core 240MHz, WiFi + BLE</p>
+									<p><strong>Haptic Hardware:</strong> DRV2605L Haptic Drivers, LRA Motors, TCA9548A I2C Multiplexer</p>
+									<p><strong>Wireless:</strong> ESP-NOW, BLE GATT, Web Bluetooth API</p>
+									<p><strong>Software:</strong> Arduino IDE, ESP32 Arduino Core, Adafruit DRV2605 Library</p>
+									<p><strong>Web:</strong> HTML5, CSS3, JavaScript, Web Bluetooth API, Progressive Web App</p>
+									<p><strong>Fabrication:</strong> 3D Printing (PLA), Custom Enclosure Design</p>
+									<p><strong>Protocols:</strong> I2C, GATT, ESP-NOW, NVS (Non-Volatile Storage)</p>
+									<p><strong>Languages:</strong> C++ (Arduino), JavaScript, HTML/CSS</p>
+								</div>
+
+								<!-- Performance Metrics -->
+								<h2>Performance Metrics</h2>
+								<table style="width: 100%; border-collapse: collapse; margin: 1em 0;">
+									<tr style="background: #f5f7f9; color: rgb(255, 255, 255);">
+										<th style="padding: 0.75em; text-align: center; border: 1px solid #34495e;">Metric</th>
+										<th style="padding: 0.75em; text-align: center; border: 1px solid #34495e;">Value</th>
+									</tr>
+									<tr>
+										<td style="padding: 0.75em; border: 1px solid #34495e;">Bilateral Synchronization Latency</td>
+										<td style="padding: 0.75em; border: 1px solid #34495e;">&lt;20ms (ESP-NOW)</td>
+									</tr>
+									<tr>
+										<td style="padding: 0.75em; border: 1px solid #34495e;">Total Motors</td>
+										<td style="padding: 0.75em; border: 1px solid #34495e;">8 (4 per hand)</td>
+									</tr>
+									<tr>
+										<td style="padding: 0.75em; border: 1px solid #34495e;">Pattern Variability</td>
+										<td style="padding: 0.75em; border: 1px solid #34495e;">24 permutations</td>
+									</tr>
+									<tr>
+										<td style="padding: 0.75em; border: 1px solid #34495e;">Burst Duration Range</td>
+										<td style="padding: 0.75em; border: 1px solid #34495e;">50-150ms (adjustable)</td>
+									</tr>
+									<tr>
+										<td style="padding: 0.75em; border: 1px solid #34495e;">Pattern Duration Range</td>
+										<td style="padding: 0.75em; border: 1px solid #34495e;">500-1000ms (adjustable)</td>
+									</tr>
+									<tr>
+										<td style="padding: 0.75em; border: 1px solid #34495e;">Motor Amplitude Range</td>
+										<td style="padding: 0.75em; border: 1px solid #34495e;">50-100% (14 intensity levels)</td>
+									</tr>
+									<tr>
+										<td style="padding: 0.75em; border: 1px solid #34495e;">BLE Connection Range</td>
+										<td style="padding: 0.75em; border: 1px solid #34495e;">~10 meters</td>
+									</tr>
+									<tr>
+										<td style="padding: 0.75em; border: 1px solid #34495e;">Parameter Update Latency</td>
+										<td style="padding: 0.75em; border: 1px solid #34495e;">~300ms (BLE → NVS → Master)</td>
+									</tr>
+								</table>
+
+								<!-- Key Learnings -->
+								<h2>Key Learnings</h2>
+								<p>
+									This project provided hands-on experience with complex embedded systems integrating multiple wireless protocols, 
+									haptic feedback hardware, and real-time synchronization constraints. Learned the importance of radio coexistence 
+									strategies when combining BLE and ESP-NOW on the same hardware. Discovered that I2C multiplexing is essential for 
+									scaling beyond 2-3 identical address devices. The shared NVS approach proved more reliable than real-time BLE 
+									parameter broadcasts for maintaining consistent settings across distributed systems.
+								</p>
+
+								<!-- Future Enhancements -->
+								<h2>Future Enhancements & Next Steps</h2>
+								<p>
+									This prototype demonstrates the core haptic stimulation concept. The next phase focuses on making the system 
+									more intelligent, wearable, and clinically testable:
+								</p>
+
+								<h3>Near-Term Improvements (3-6 months)</h3>
+								<ul>
+									<li><strong>IMU Integration (MPU6050):</strong> Add 3-axis accelerometer to measure actual tremor amplitude 
+									before and after stimulation - quantify efficacy rather than relying on subjective feedback</li>
+									<li><strong>Battery Monitoring:</strong> Integrate fuel gauge IC and implement low-power sleep modes to achieve 
+									6-8 hour continuous operation between charges</li>
+									<li><strong>Data Logging:</strong> Add microSD card module to record tremor measurements, stimulation parameters 
+									used, and timestamps - essential for clinical validation</li>
+									<li><strong>Improved Enclosures:</strong> Redesign 3D-printed housings with ergonomic finger contours and 
+									ventilation slots for extended wear comfort</li>
+								</ul>
+
+								<h3>Medium-Term Development (6-12 months)</h3>
+								<ul>
+									<li><strong>Adaptive Pattern Selection:</strong> Use recorded IMU data to identify which VCR patterns work best 
+									for individual users - simple statistical analysis to auto-select effective permutations</li>
+									<li><strong>iOS App Development:</strong> Build native Core Bluetooth app for iPhone users with offline data 
+									sync and treatment session history tracking</li>
+									<li><strong>Textile Integration:</strong> Partner with wearable tech designers to embed motors and electronics 
+									into washable glove substrate - move from prototype to daily-wearable device</li>
+									<li><strong>Clinical Pilot Study:</strong> Work with local neurology clinic to conduct IRB-approved usability 
+									testing with 5-10 Parkinson's patients - gather real-world feedback on comfort, efficacy, and usability</li>
+								</ul>
+
+								<h3>Long-Term Vision (1-2 years)</h3>
+								<ul>
+									<li><strong>Closed-Loop Control:</strong> Implement real-time tremor frequency detection from IMU to automatically 
+									adjust stimulation timing - match haptic cues to actual tremor oscillations instead of fixed patterns</li>
+									<li><strong>Multi-Site Comparison:</strong> Design wrist-band and forearm-band variants to test whether proximal 
+									stimulation is more effective than finger-mounted motors</li>
+									<li><strong>Open-Source Release:</strong> Publish complete hardware designs, firmware, and web app to GitHub - 
+									enable researchers and makers worldwide to replicate and improve the system</li>
+								</ul>
+
+								<h3>The Next Chapter</h3>
+								<p style="font-style: italic; margin-top: 2em;">
+									<strong>What excites me most?</strong> The IMU integration. Right now, we're delivering stimulation blindly - 
+									we don't actually know if the tremor is reducing. Adding an accelerometer transforms this from a "haptic glove" 
+									into a "tremor measurement and intervention system." 
+								</p>
+
+								<p style="font-style: italic;">
+									The MPU6050 costs $3, uses the same I2C bus we're already running, and can sample at 100Hz - more than fast 
+									enough to capture 4-12Hz Parkinsonian tremor. The firmware changes are straightforward: read accelerometer data, 
+									run FFT to extract tremor frequency, log amplitude before/during/after stimulation.
+								</p>
+
+								<p style="font-style: italic; margin-bottom: 2em;">
+									<strong>That's V2. Same glove, smarter brain, measurable results.</strong> The hardware's ready. The math is 
+									known. Now it's just a matter of building it.
+								</p>
+
+								<!-- Technical Documentation -->
+								<h2>Technical Documentation</h2>
+								<p>
+									The project includes three main software components:
+								</p>
+
+								<h3>Firmware Files</h3>
+								<ul>
+									<li><strong>GloveMaster.ino:</strong> Master glove firmware (left hand) with ESP-NOW transmission and VCR pattern generation</li>
+									<li><strong>GloveSlave.ino:</strong> Slave glove firmware (right hand) with BLE GATT server and ESP-NOW reception</li>
+									<li><strong>GitHub Repository:</strong> <a href="https://github.com/yogeshsalvi09032000/Parkinson-Gloves-Project.git" target="_blank" rel="noopener">https://github.com/yogeshsalvi09032000/Parkinson-Gloves-Project.git</a></li>
+								</ul>
+
+								<h3>Web Application</h3>
+								<ul>
+									<li><strong>GloveControl.html:</strong> Progressive Web App using Web Bluetooth API for wireless parameter control</li>
+									<li>Self-contained single-file application (HTML + CSS + JavaScript)</li>
+									<li>Works offline after initial load (PWA architecture)</li>
+									<li>Requires Chrome for Android (Web Bluetooth support)</li>
+								</ul>
+
+								<h3>Key Code Features</h3>
+								<ul>
+									<li>24-permutation lookup table for randomized motor firing sequences</li>
+									<li>TCA9548A channel selection for I2C multiplexing</li>
+									<li>DRV2605 waveform library mapping (effects 1-14 for amplitude control)</li>
+									<li>ESP-NOW peer management with fixed MAC addresses</li>
+									<li>BLE GATT service with 3 custom characteristics</li>
+									<li>NVS namespace sharing between master and slave</li>
+									<li>Web Bluetooth device discovery and GATT connection handling</li>
+								</ul>
+
+								<!-- Medical Context -->
+								<h2>Medical Context & Motivation</h2>
+								<p>
+									Parkinson's disease affects over 10 million people worldwide, with tremor being one of the most visible 
+									and debilitating symptoms. Vibrotactile cueing has shown promise in clinical studies as a non-invasive 
+									method to reduce tremor amplitude by disrupting the pathological neural oscillations driving the tremor. 
+									This glove system implements VCR (Variable Frequency Complex Repetitive) stimulation patterns based on 
+									research suggesting that varied, complex haptic feedback is more effective than simple repetitive pulses.
+								</p>
+
+								<!-- Back Navigation -->
+								<ul class="actions special">
+									<li><a href="../index.html#projects" class="button large">← Back to All Projects</a></li>
+								</ul>
+
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<section>
+							<h3>Contact</h3>
+							<ul style="list-style: none; padding: 0;">
+								<li><a href="mailto:yogeshsalvi09032000@gmail.com">yogeshsalvi09032000@gmail.com</a></li>
+							</ul>
+						</section>
+						<section>
+							<h3>Social</h3>
+							<ul class="icons alt">
+								<li><a href="https://www.linkedin.com/in/yogesh-salvi-robotics" target="_blank" rel="noopener" class="icon brands alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
+								<li><a href="https://github.com/yogeshsalvi09032000" target="_blank" rel="noopener" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+							</ul>
+						</section>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+
+	</body>
+</html>

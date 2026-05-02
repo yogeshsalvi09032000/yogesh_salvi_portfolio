@@ -1,0 +1,402 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Portable Waveform Generator - Yogesh Salvi</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="description" content="SMD-based portable waveform generation system with ATmega328" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<a href="../index.html" class="logo">← Back to Portfolio</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li><a href="../index.html">Portfolio</a></li>
+							<li><a href="../resume.html">Resume</a></li>
+							<li><a href="../index.html#aboutme">About Me</a></li>
+						</ul>
+						<ul class="icons">
+							<li><a href="https://www.linkedin.com/in/yogesh-salvi-robotics" target="_blank" rel="noopener" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+							<li><a href="https://github.com/yogeshsalvi09032000" target="_blank" rel="noopener" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+							<li><a href="mailto:yogeshsalvi09032000@gmail.com" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<header class="major">
+									<span class="date">2022</span>
+									<h1>Portable Waveform Generator<br />Embedded Signal Generation System</h1>
+									<p>SMD-Based Design with Multiple Waveform Outputs</p>
+								</header>
+
+								<!-- Demo Videos -->
+								<h2>Project Demos</h2>
+								<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1em; margin-bottom: 2em;">
+									<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+										<iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
+										        src="https://www.youtube.com/embed/GUmZcK6qDvs" 
+										        frameborder="0" allowfullscreen>
+										</iframe>
+									</div>
+									<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+										<iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
+										        src="https://www.youtube.com/embed/MOunPWE3lTQ" 
+										        frameborder="0" allowfullscreen>
+										</iframe>
+									</div>
+								</div>
+
+								<!-- Project Overview -->
+								<h2>Project Overview</h2>
+								<p>
+									Led a three-member team to design and build a portable waveform generation system for field testing 
+									and educational purposes. The device generates multiple standard waveforms (sine, square, triangle, 
+									sawtooth) with adjustable frequency and amplitude using an SMD-based embedded circuit centered on 
+									the ATmega328 microcontroller. The compact design makes it suitable for deployment in remote and 
+									resource-constrained environments.
+								</p>
+
+								<!-- Problem Statement -->
+								<h2>Problem Statement</h2>
+								<p>
+									Traditional function generators are:
+								</p>
+								<ul>
+									<li>Expensive (>$200) and not accessible to students/hobbyists</li>
+									<li>Bulky and require AC power supply</li>
+									<li>Overkill for basic signal generation needs</li>
+									<li>Not suitable for field work or portable applications</li>
+								</ul>
+								<p>
+									This project aimed to create an affordable, portable alternative providing essential waveform 
+									generation capabilities in a compact form factor.
+								</p>
+
+								<!-- Design Objectives -->
+								<h2>Design Objectives</h2>
+								<ul>
+									<li>Generate standard waveforms: sine, square, triangle, sawtooth</li>
+									<li>Adjustable frequency range: 1 Hz to 10 kHz</li>
+									<li>Adjustable amplitude: 0V to 5V peak-to-peak</li>
+									<li>Battery-powered operation (8+ hours)</li>
+									<li>Compact PCB design using SMD components</li>
+									<li>Total cost under $30 per unit</li>
+									<li>User-friendly interface with LCD display</li>
+								</ul>
+
+								<!-- System Architecture -->
+								<h2>System Architecture</h2>
+								<p>
+									The waveform generator consists of three main subsystems:
+								</p>
+
+								<h3>1. Digital Signal Generation</h3>
+								<ul>
+									<li><strong>Microcontroller:</strong> ATmega328P (Arduino-compatible)</li>
+									<li><strong>Waveform Synthesis:</strong> Lookup table-based DAC output</li>
+									<li><strong>Frequency Control:</strong> Timer interrupts for precise timing</li>
+									<li><strong>User Interface:</strong> Rotary encoder + push buttons</li>
+									<li><strong>Display:</strong> 16×2 LCD showing frequency, amplitude, waveform type</li>
+								</ul>
+
+								<h3>2. Analog Signal Conditioning</h3>
+								<ul>
+									<li><strong>DAC (Digital-to-Analog):</strong> R-2R ladder network (8-bit resolution)</li>
+									<li><strong>Op-Amp Stages:</strong> TL072 dual op-amps for signal processing</li>
+									<li><strong>Amplification:</strong> Variable gain stage (0-5V output)</li>
+									<li><strong>Filtering:</strong> Active low-pass filter to smooth digital steps</li>
+									<li><strong>Buffering:</strong> Output buffer for low impedance drive</li>
+								</ul>
+
+								<h3>3. Power Management</h3>
+								<ul>
+									<li><strong>Battery:</strong> 2× 18650 Li-ion cells (7.4V)</li>
+									<li><strong>Regulation:</strong> LM7805 (5V) + LM7905 (-5V) for op-amps</li>
+									<li><strong>Protection:</strong> Reverse polarity, overcurrent protection</li>
+									<li><strong>Monitoring:</strong> Battery voltage indicator</li>
+								</ul>
+
+								<!-- Waveform Generation -->
+								<h2>Waveform Generation Algorithm</h2>
+
+								<h3>Lookup Table Method</h3>
+								<p>
+									Each waveform is stored as a 256-sample lookup table in program memory:
+								</p>
+								<pre><code>// Sine wave lookup table (256 samples, 8-bit)
+const uint8_t PROGMEM sineTable[256] = {
+    128, 131, 134, 137, ..., 122, 125, 128
+};
+
+// Generate output at desired frequency
+ISR(TIMER1_COMPAR_A_vect) {
+    static uint8_t index = 0;
+    DAC_output = pgm_read_byte(&sineTable[index]);
+    index++;  // Circular buffer
+}</code></pre>
+
+								<h3>Frequency Control</h3>
+								<p>
+									Timer interrupt frequency determines output frequency:
+								</p>
+								<pre><code>f_output = f_interrupt / 256
+
+Where:
+- f_interrupt = CPU_freq / prescaler / compare_value
+- 256 = lookup table length</code></pre>
+
+								<h3>Waveform Types</h3>
+								<ul>
+									<li><strong>Sine:</strong> Pre-calculated sine values (0-255)</li>
+									<li><strong>Square:</strong> Alternating 0 and 255 values</li>
+									<li><strong>Triangle:</strong> Linear ramp up then down</li>
+									<li><strong>Sawtooth:</strong> Linear ramp up, instant drop</li>
+								</ul>
+
+								<!-- Circuit Design -->
+								<h2>Circuit Design</h2>
+
+								<h3>R-2R DAC Network</h3>
+								<p>
+									8-bit R-2R ladder converts digital values to analog voltage:
+								</p>
+								<ul>
+									<li>8 digital outputs from ATmega328 (Port D)</li>
+									<li>Resistor values: R = 10kΩ, 2R = 20kΩ</li>
+									<li>Output range: 0V to V_ref (5V)</li>
+									<li>Resolution: 5V / 256 = 19.5 mV per step</li>
+								</ul>
+
+								<h3>Op-Amp Signal Conditioning</h3>
+								<p>
+									Two-stage op-amp circuit processes DAC output:
+								</p>
+
+								<h4>Stage 1: Active Low-Pass Filter</h4>
+								<ul>
+									<li>Removes digital stepping artifacts</li>
+									<li>Cutoff frequency: ~20 kHz (above max signal frequency)</li>
+									<li>2nd-order Butterworth response</li>
+								</ul>
+
+								<h4>Stage 2: Variable Gain Amplifier</h4>
+								<ul>
+									<li>Adjustable amplitude control via potentiometer</li>
+									<li>Non-inverting configuration</li>
+									<li>Gain range: 0× to 2× (0V to 10V p-p output)</li>
+									<li>Output buffer for low impedance (<50Ω)</li>
+								</ul>
+
+								<!-- PCB Design -->
+								<h2>PCB Design (SMD Implementation)</h2>
+
+								<h3>Design Specifications</h3>
+								<ul>
+									<li><strong>Board Size:</strong> 80mm × 50mm (credit card sized)</li>
+									<li><strong>Layers:</strong> 2-layer FR4 substrate</li>
+									<li><strong>Component Density:</strong> High (SMD 0805 resistors/capacitors)</li>
+									<li><strong>Traces:</strong> Minimum 0.3mm width, 0.3mm clearance</li>
+									<li><strong>Ground Plane:</strong> Continuous pour on bottom layer</li>
+								</ul>
+
+								<h3>SMD Component Selection</h3>
+								<ul>
+									<li><strong>ATmega328P-AU:</strong> TQFP-32 package (saves space vs. DIP)</li>
+									<li><strong>Resistors/Capacitors:</strong> 0805 package (hand-solderable)</li>
+									<li><strong>Op-Amps:</strong> SOIC-8 package (TL072)</li>
+									<li><strong>Regulators:</strong> TO-220 (through-hole for heatsinking)</li>
+									<li><strong>Connectors:</strong> Screw terminals for outputs</li>
+								</ul>
+
+								<h3>Layout Considerations</h3>
+								<ul>
+									<li>Separate analog and digital ground regions</li>
+									<li>Star grounding at power input</li>
+									<li>Short traces for DAC resistor network</li>
+									<li>Bypass capacitors close to IC power pins</li>
+									<li>Shielded analog section from digital noise</li>
+								</ul>
+
+								<!-- Assembly & Testing -->
+								<h2>Assembly & Testing</h2>
+
+								<h3>PCB Assembly Process</h3>
+								<ol>
+									<li><strong>Solder Paste Application:</strong> Stencil-applied to pads</li>
+									<li><strong>Component Placement:</strong> Tweezers for SMD parts</li>
+									<li><strong>Reflow Soldering:</strong> Hot air station (controlled temperature profile)</li>
+									<li><strong>Through-Hole Parts:</strong> Hand-soldered regulators, connectors</li>
+									<li><strong>Inspection:</strong> Visual check + multimeter continuity test</li>
+									<li><strong>Cleaning:</strong> Isopropyl alcohol to remove flux residue</li>
+								</ol>
+
+								<h3>Testing Procedure</h3>
+								<ol>
+									<li><strong>Power-On Test:</strong> Verify voltage rails (±5V, 3.3V)</li>
+									<li><strong>Microcontroller Test:</strong> Upload blink program</li>
+									<li><strong>DAC Test:</strong> Manually set outputs, measure analog voltage</li>
+									<li><strong>Waveform Test:</strong> Generate each waveform type, verify on oscilloscope</li>
+									<li><strong>Frequency Accuracy:</strong> Measure with frequency counter</li>
+									<li><strong>Amplitude Calibration:</strong> Adjust gain, verify 0-5V range</li>
+									<li><strong>Battery Life Test:</strong> Continuous operation timing</li>
+								</ol>
+
+								<!-- Results & Performance -->
+								<h2>Results & Performance</h2>
+
+								<h3>Achieved Specifications</h3>
+								<ul>
+									<li><strong>Frequency Range:</strong> 1 Hz to 12 kHz (exceeded 10 kHz target)</li>
+									<li><strong>Frequency Accuracy:</strong> ±2% (verified with frequency counter)</li>
+									<li><strong>Amplitude Range:</strong> 0V to 5.2V peak-to-peak</li>
+									<li><strong>Waveform Quality:</strong> <5% THD (Total Harmonic Distortion) for sine wave</li>
+									<li><strong>Battery Life:</strong> 10+ hours continuous operation</li>
+									<li><strong>Output Impedance:</strong> <10Ω (can drive 600Ω loads)</li>
+									<li><strong>Total Cost:</strong> $27 per unit (bulk component pricing)</li>
+								</ul>
+
+								<h3>Oscilloscope Measurements</h3>
+								<p>
+									Verified waveforms on Tektronix oscilloscope:
+								</p>
+								<ul>
+									<li><strong>Sine Wave:</strong> Smooth, minimal distortion at 1 kHz</li>
+									<li><strong>Square Wave:</strong> Sharp edges, <50ns rise time</li>
+									<li><strong>Triangle:</strong> Linear ramps, symmetrical</li>
+									<li><strong>Sawtooth:</strong> Linear rise, fast fall</li>
+								</ul>
+
+								<!-- Challenges & Solutions -->
+								<h2>Challenges & Solutions</h2>
+								<div class="box">
+									<h4>Challenge: SMD Soldering Difficulty</h4>
+									<p><strong>Solution:</strong> Practiced on scrap boards before final assembly. Used solder paste 
+									+ hot air reflow instead of hand-soldering individual pads. Created custom stencils from overhead 
+									transparencies. Team member training to ensure consistent quality.</p>
+
+									<h4>Challenge: High-Frequency Noise</h4>
+									<p><strong>Solution:</strong> Added decoupling capacitors (100nF) at every IC power pin. Implemented 
+									ground plane with via stitching. Separated analog and digital sections on PCB. Added LC filter on 
+									power input to isolate digital switching noise.</p>
+
+									<h4>Challenge: Battery Drain from LCD Backlight</h4>
+									<p><strong>Solution:</strong> Implemented auto-off for LCD backlight after 30 seconds inactivity. 
+									Used efficient voltage regulators (LDO instead of linear). Added sleep mode when not actively 
+									outputting signal.</p>
+
+									<h4>Challenge: DAC Non-Linearity</h4>
+									<p><strong>Solution:</strong> Used 1% tolerance resistors for R-2R network. Implemented software 
+									calibration lookup table to compensate for component tolerances. Measured each unit and stored 
+									correction factors in EEPROM.</p>
+								</div>
+
+								<!-- Applications -->
+								<h2>Applications & Use Cases</h2>
+								<ul>
+									<li><strong>Education:</strong> Teaching signal processing, electronics labs</li>
+									<li><strong>Audio Testing:</strong> Speaker frequency response measurement</li>
+									<li><strong>Circuit Testing:</strong> Filter characterization, amplifier testing</li>
+									<li><strong>Sensor Simulation:</strong> Emulating analog sensor outputs</li>
+									<li><strong>Field Work:</strong> Portable troubleshooting tool for technicians</li>
+								</ul>
+
+								<!-- Tools & Technologies -->
+								<h2>Tools & Technologies</h2>
+								<div class="box">
+									<p><strong>Hardware:</strong> ATmega328P, TL072 Op-Amps, R-2R DAC, 18650 Li-ion Batteries</p>
+									<p><strong>PCB Design:</strong> KiCad EDA, SMD 0805 Components, 2-Layer FR4</p>
+									<p><strong>Firmware:</strong> Embedded C, Arduino IDE, Timer Interrupts, Lookup Tables</p>
+									<p><strong>Testing:</strong> Oscilloscope, Frequency Counter, Multimeter, Function Generator (reference)</p>
+									<p><strong>Assembly:</strong> Hot Air Rework Station, Solder Paste, Stencils, Tweezers</p>
+								</div>
+
+								<!-- Team & Collaboration -->
+								<h2>Team & Project Management</h2>
+								<p>
+									As team lead, coordinated a three-member team:
+								</p>
+								<ul>
+									<li><strong>Circuit Design:</strong> Schematic capture, component selection</li>
+									<li><strong>PCB Layout:</strong> Board design, routing, DRC verification</li>
+									<li><strong>Firmware Development:</strong> Waveform algorithms, user interface</li>
+									<li><strong>Testing & Documentation:</strong> Performance validation, user manual</li>
+								</ul>
+								<p>
+									Used Trello for task management, GitHub for firmware version control, and weekly meetings 
+									to track progress and resolve issues collaboratively.
+								</p>
+
+								<!-- Key Learnings -->
+								<h2>Key Learnings</h2>
+								<p>
+									This project taught practical skills in SMD PCB design and assembly, embedded signal processing, 
+									and analog circuit design. Learned the importance of proper grounding and decoupling in mixed-signal 
+									designs, trade-offs between DAC resolution and cost/complexity, and effective team coordination for 
+									hardware projects. The experience of taking a project from concept through design, fabrication, and 
+									testing reinforced the complete product development cycle.
+								</p>
+
+								<!-- Future Enhancements -->
+								<h2>Future Enhancements</h2>
+								<ul>
+									<li>Add 12-bit external DAC for improved waveform quality</li>
+									<li>Implement arbitrary waveform generation (user-defined shapes)</li>
+									<li>Add frequency sweep mode for filter testing</li>
+									<li>Include dual-channel output for differential signaling</li>
+									<li>Add USB connectivity for PC control and data logging</li>
+									<li>Create smartphone app for wireless control</li>
+								</ul>
+
+								<!-- Back Navigation -->
+								<ul class="actions special">
+									<li><a href="../index.html#projects" class="button large">← Back to All Projects</a></li>
+								</ul>
+
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<section>
+							<h3>Contact</h3>
+							<ul style="list-style: none; padding: 0;">
+								<li><a href="mailto:yogeshsalvi09032000@gmail.com">yogeshsalvi09032000@gmail.com</a></li>
+							</ul>
+						</section>
+						<section>
+							<h3>Social</h3>
+							<ul class="icons alt">
+								<li><a href="https://www.linkedin.com/in/yogesh-salvi-robotics" target="_blank" rel="noopener" class="icon brands alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
+								<li><a href="https://github.com/yogeshsalvi09032000" target="_blank" rel="noopener" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+							</ul>
+						</section>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+
+	</body>
+</html>

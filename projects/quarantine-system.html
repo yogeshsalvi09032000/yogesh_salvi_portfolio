@@ -1,0 +1,411 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Quarantine Patients Management System - Yogesh Salvi</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="description" content="Java-based healthcare management system for quarantine coordination" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<a href="../index.html" class="logo">← Back to Portfolio</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li><a href="../index.html">Portfolio</a></li>
+							<li><a href="../resume.html">Resume</a></li>
+							<li><a href="../index.html#aboutme">About Me</a></li>
+						</ul>
+						<ul class="icons">
+							<li><a href="https://www.linkedin.com/in/yogesh-salvi-robotics" target="_blank" rel="noopener" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+							<li><a href="https://github.com/yogeshsalvi09032000" target="_blank" rel="noopener" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+							<li><a href="mailto:yogeshsalvi09032000@gmail.com" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<header class="major">
+									<span class="date">2020-2021</span>
+									<h1>Quarantine Patients<br />Management System</h1>
+									<p>Healthcare Data Management with Java and OOP</p>
+								</header>
+
+								<!-- Project Image -->
+								<div class="image main">
+									<img src="../images/qpms1.jpg" alt="Quarantine management system interface" />
+								</div>
+
+								<!-- Project Context -->
+								<h2>Project Context</h2>
+								<p>
+									During the COVID-19 pandemic, efficient management of quarantine patients and healthcare resource 
+									allocation became critical. This project developed a Java-based desktop application to help healthcare 
+									administrators track quarantined patients, identify available doctors by location, and facilitate rapid 
+									coordination during health emergencies.
+								</p>
+
+								<!-- Problem Statement -->
+								<h2>Problem Statement</h2>
+								<p>
+									Healthcare facilities faced challenges during the pandemic:
+								</p>
+								<ul>
+									<li><strong>Patient Tracking:</strong> Manual spreadsheets couldn't scale with patient volume</li>
+									<li><strong>Resource Allocation:</strong> Difficult to match patients with available doctors by location</li>
+									<li><strong>Contact Information:</strong> Critical time wasted searching for doctor contact details</li>
+									<li><strong>Data Consistency:</strong> Multiple disconnected systems led to errors</li>
+									<li><strong>Quick Access:</strong> Slow retrieval of information during emergencies</li>
+								</ul>
+
+								<!-- Project Objectives -->
+								<h2>Project Objectives</h2>
+								<ul>
+									<li>Create centralized database for patient and doctor information</li>
+									<li>Implement location-based search for available healthcare providers</li>
+									<li>Provide quick access to doctor contact information</li>
+									<li>Use object-oriented design for maintainable, extensible code</li>
+									<li>Build intuitive GUI for non-technical healthcare staff</li>
+									<li>Ensure data consistency and validation</li>
+								</ul>
+
+								<!-- System Architecture -->
+								<h2>System Architecture</h2>
+								<p>
+									The application follows a three-tier architecture:
+								</p>
+
+								<h3>1. Presentation Layer (GUI)</h3>
+								<ul>
+									<li><strong>Framework:</strong> Java Swing for desktop interface</li>
+									<li><strong>Components:</strong> Tables, search forms, data entry panels</li>
+									<li><strong>Navigation:</strong> Tab-based interface for different modules</li>
+									<li><strong>Visual Feedback:</strong> Status indicators, validation messages</li>
+								</ul>
+
+								<h3>2. Business Logic Layer</h3>
+								<ul>
+									<li><strong>Patient Management:</strong> Add, update, search patient records</li>
+									<li><strong>Doctor Management:</strong> Maintain doctor availability and specializations</li>
+									<li><strong>Search Algorithm:</strong> Location-based matching of patients to doctors</li>
+									<li><strong>Validation:</strong> Data integrity checks, input validation</li>
+								</ul>
+
+								<h3>3. Data Layer</h3>
+								<ul>
+									<li><strong>Storage:</strong> File-based persistence (CSV/text files)</li>
+									<li><strong>Data Structures:</strong> ArrayList, HashMap for in-memory storage</li>
+									<li><strong>CRUD Operations:</strong> Create, Read, Update, Delete functionality</li>
+								</ul>
+
+								<!-- Object-Oriented Design -->
+								<h2>Object-Oriented Design</h2>
+
+								<h3>Core Classes</h3>
+
+								<h4>Patient Class</h4>
+								<pre><code>public class Patient {
+    private String patientID;
+    private String name;
+    private int age;
+    private String location;
+    private String quarantineStatus;  // "Active", "Recovered", "Deceased"
+    private Date quarantineStartDate;
+    private String symptoms;
+    private String contactNumber;
+    
+    // Constructor, getters, setters
+    // toString() for display
+}</code></pre>
+
+								<h4>Doctor Class</h4>
+								<pre><code>public class Doctor {
+    private String doctorID;
+    private String name;
+    private String specialization;
+    private String location;
+    private boolean isAvailable;
+    private String contactNumber;
+    private String hospital;
+    
+    // Constructor, getters, setters
+    // Methods: markAvailable(), markUnavailable()
+}</code></pre>
+
+								<h4>Database Manager Class</h4>
+								<pre><code>public class DatabaseManager {
+    private ArrayList<Patient> patients;
+    private ArrayList<Doctor> doctors;
+    
+    // CRUD operations
+    public void addPatient(Patient p);
+    public void updatePatient(String id, Patient p);
+    public Patient searchPatient(String id);
+    public void deletePatient(String id);
+    
+    // Location-based search
+    public ArrayList<Doctor> findDoctorsByLocation(String location);
+    public ArrayList<Patient> getPatientsInQuarantine();
+    
+    // File I/O
+    public void saveToFile();
+    public void loadFromFile();
+}</code></pre>
+
+								<!-- Key Features -->
+								<h2>Key Features</h2>
+
+								<h3>1. Patient Registration & Tracking</h3>
+								<ul>
+									<li>Unique patient ID generation</li>
+									<li>Comprehensive patient information capture</li>
+									<li>Quarantine status tracking (Active/Recovered/Deceased)</li>
+									<li>Symptom logging and history</li>
+									<li>Automatic quarantine duration calculation</li>
+								</ul>
+
+								<h3>2. Doctor Availability Management</h3>
+								<ul>
+									<li>Doctor profile with specialization and location</li>
+									<li>Real-time availability status updates</li>
+									<li>Hospital affiliation tracking</li>
+									<li>Contact information repository</li>
+								</ul>
+
+								<h3>3. Location-Based Search</h3>
+								<p>
+									Core algorithm to match patients with nearby available doctors:
+								</p>
+								<pre><code>public ArrayList<Doctor> findDoctorsByLocation(String patientLocation) {
+    ArrayList<Doctor> availableDoctors = new ArrayList<>();
+    
+    for (Doctor doc : doctors) {
+        if (doc.getLocation().equalsIgnoreCase(patientLocation) 
+            && doc.isAvailable()) {
+            availableDoctors.add(doc);
+        }
+    }
+    
+    // Sort by specialization priority if needed
+    return availableDoctors;
+}</code></pre>
+
+								<h3>4. Data Visualization</h3>
+								<ul>
+									<li><strong>Patient Table:</strong> Sortable, filterable patient list</li>
+									<li><strong>Doctor Table:</strong> Available doctors by location</li>
+									<li><strong>Statistics Panel:</strong> Total patients, quarantine count, recovery rate</li>
+									<li><strong>Search Results:</strong> Highlighted matches in tables</li>
+								</ul>
+
+								<!-- User Interface -->
+								<h2>User Interface Design</h2>
+
+								<h3>Main Dashboard</h3>
+								<p>
+									Tab-based navigation for different modules:
+								</p>
+								<ul>
+									<li><strong>Home:</strong> Overview statistics and quick actions</li>
+									<li><strong>Patients:</strong> Patient registration and management</li>
+									<li><strong>Doctors:</strong> Doctor profiles and availability</li>
+									<li><strong>Search:</strong> Location-based doctor search</li>
+									<li><strong>Reports:</strong> Summary statistics and export</li>
+								</ul>
+
+								<h3>Search Interface</h3>
+								<p>
+									Simple form-based search:
+								</p>
+								<ul>
+									<li>Text field for location input</li>
+									<li>Dropdown for filtering by specialization</li>
+									<li>Results displayed in sortable table</li>
+									<li>One-click access to doctor contact information</li>
+								</ul>
+
+								<!-- Data Structures & Algorithms -->
+								<h2>Data Structures & Algorithms</h2>
+
+								<h3>Data Structures Used</h3>
+								<ul>
+									<li><strong>ArrayList:</strong> Dynamic storage for patients and doctors</li>
+									<li><strong>HashMap:</strong> Fast lookups by ID (O(1) average case)</li>
+									<li><strong>TreeSet:</strong> Sorted unique locations for dropdown menus</li>
+								</ul>
+
+								<h3>Search Algorithms</h3>
+								<ul>
+									<li><strong>Linear Search:</strong> Location matching (small dataset, simple implementation)</li>
+									<li><strong>Binary Search:</strong> Sorted patient ID lookups (for large datasets)</li>
+									<li><strong>Filtering:</strong> Multiple criteria (location + availability + specialization)</li>
+								</ul>
+
+								<!-- File I/O -->
+								<h2>Data Persistence</h2>
+
+								<h3>File Format (CSV)</h3>
+								<pre><code>// patients.csv
+PatientID,Name,Age,Location,Status,StartDate,Symptoms,Contact
+P001,John Doe,45,Mumbai,Active,2021-03-15,Fever,9876543210
+
+// doctors.csv
+DoctorID,Name,Specialization,Location,Available,Contact,Hospital
+D001,Dr. Smith,General,Mumbai,true,9123456780,City Hospital</code></pre>
+
+								<h3>Load/Save Operations</h3>
+								<p>
+									Data automatically loaded on application start and saved on exit or explicit save action.
+								</p>
+
+								<!-- Testing & Validation -->
+								<h2>Testing & Validation</h2>
+
+								<h3>Input Validation</h3>
+								<ul>
+									<li>Required field checking (name, ID, location cannot be empty)</li>
+									<li>Phone number format validation (10 digits)</li>
+									<li>Age range validation (0-120 years)</li>
+									<li>Date validation (quarantine start date cannot be in future)</li>
+									<li>Duplicate ID prevention</li>
+								</ul>
+
+								<h3>Test Scenarios</h3>
+								<ul>
+									<li><strong>Patient Registration:</strong> Added 50 test patients, verified storage</li>
+									<li><strong>Location Search:</strong> Tested with 10+ locations, verified correct matches</li>
+									<li><strong>Edge Cases:</strong> Empty database, no available doctors, invalid inputs</li>
+									<li><strong>Data Persistence:</strong> Save/load cycles to verify data integrity</li>
+								</ul>
+
+								<!-- Results -->
+								<h2>Results & Impact</h2>
+
+								<h3>Features Delivered</h3>
+								<ul>
+									<li>✅ Centralized patient and doctor database</li>
+									<li>✅ Location-based search functionality</li>
+									<li>✅ Quick access to contact information</li>
+									<li>✅ Data persistence and validation</li>
+									<li>✅ User-friendly GUI interface</li>
+								</ul>
+
+								<h3>Performance</h3>
+								<ul>
+									<li><strong>Search Speed:</strong> <100ms for 1000+ patient records</li>
+									<li><strong>Data Loading:</strong> <2 seconds for CSV with 500+ records</li>
+									<li><strong>Memory Footprint:</strong> <50 MB RAM</li>
+								</ul>
+
+								<!-- Challenges & Solutions -->
+								<h2>Challenges & Solutions</h2>
+								<div class="box">
+									<h4>Challenge: Data Integrity Across Sessions</h4>
+									<p><strong>Solution:</strong> Implemented auto-save on every update operation. Added data validation 
+									before writing to file. Implemented backup mechanism to prevent data loss on crashes.</p>
+
+									<h4>Challenge: Case-Insensitive Location Matching</h4>
+									<p><strong>Solution:</strong> Standardized all location strings to lowercase before comparison. 
+									Added autocomplete dropdown to prevent typos and inconsistent naming.</p>
+
+									<h4>Challenge: GUI Responsiveness</h4>
+									<p><strong>Solution:</strong> Moved file I/O operations to background threads. Implemented 
+									progress indicators for long-running operations. Used SwingWorker for async tasks.</p>
+								</div>
+
+								<!-- Tools & Technologies -->
+								<h2>Tools & Technologies</h2>
+								<div class="box">
+									<p><strong>Programming Language:</strong> Java (JDK 11)</p>
+									<p><strong>GUI Framework:</strong> Java Swing, AWT</p>
+									<p><strong>Data Structures:</strong> ArrayList, HashMap, TreeSet</p>
+									<p><strong>File I/O:</strong> BufferedReader/Writer, CSV parsing</p>
+									<p><strong>IDE:</strong> Eclipse / IntelliJ IDEA</p>
+									<p><strong>Version Control:</strong> Git</p>
+								</div>
+
+								<!-- Key Learnings -->
+								<h2>Key Learnings</h2>
+								<p>
+									This project reinforced object-oriented programming principles including encapsulation, inheritance, 
+									and polymorphism. Learned the importance of proper data validation for user-facing applications, 
+									efficient data structures for performance, and the value of clean GUI design for non-technical users. 
+									Gained experience in file I/O operations, exception handling, and basic software architecture patterns.
+								</p>
+
+								<!-- Future Enhancements -->
+								<h2>Future Enhancements</h2>
+								<ul>
+									<li>Migrate to database (MySQL/PostgreSQL) for better scalability</li>
+									<li>Add user authentication and role-based access control</li>
+									<li>Implement email/SMS notifications to doctors</li>
+									<li>Add reporting module with PDF export</li>
+									<li>Create web-based version for remote access</li>
+									<li>Integrate with hospital information systems (HL7 protocol)</li>
+									<li>Add data analytics dashboard with visualizations</li>
+								</ul>
+
+								<!-- Real-World Application -->
+								<h2>Real-World Application</h2>
+								<p>
+									While developed as an academic project, this system demonstrates practical solutions for:
+								</p>
+								<ul>
+									<li>Healthcare resource management during pandemics</li>
+									<li>Patient tracking in quarantine facilities</li>
+									<li>Rapid doctor assignment in emergency situations</li>
+									<li>Contact tracing support systems</li>
+									<li>Public health data management</li>
+								</ul>
+
+								<!-- Back Navigation -->
+								<ul class="actions special">
+									<li><a href="../index.html#projects" class="button large">← Back to All Projects</a></li>
+								</ul>
+
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<section>
+							<h3>Contact</h3>
+							<ul style="list-style: none; padding: 0;">
+								<li><a href="mailto:yogeshsalvi09032000@gmail.com">yogeshsalvi09032000@gmail.com</a></li>
+							</ul>
+						</section>
+						<section>
+							<h3>Social</h3>
+							<ul class="icons alt">
+								<li><a href="https://www.linkedin.com/in/yogesh-salvi-robotics" target="_blank" rel="noopener" class="icon brands alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
+								<li><a href="https://github.com/yogeshsalvi09032000" target="_blank" rel="noopener" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+							</ul>
+						</section>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+
+	</body>
+</html>
